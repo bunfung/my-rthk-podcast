@@ -5,6 +5,8 @@ RTHK 《講東講西》自動上傳腳本
 - 讀取 episodes.json，找出符合主持人條件且已下載 MP3 的集數
 - 用 CDP + xdotool 自動上傳到 Spotify for Creators
 - 只上傳尚未在 Spotify 上的集數
+- 上傳成功後刪除本地 MP3
+- 完成後自動 git push 更新 JSON 記錄到 GitHub
 
 主持人篩選規則：
   - 有「主持：」欄 → 必須包含蘇奭、邱逸、馬鼎盛、馮天樂其中一位
@@ -30,11 +32,15 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 EPISODES_FILE = '/home/ubuntu/rthk_podcast/episodes.json'
+MAPPING_FILE = '/home/ubuntu/rthk_podcast/spotify_episode_mapping.json'
 MP3_DIR = '/home/ubuntu/rthk_podcast/mp3'
+SCRIPT_DIR = '/home/ubuntu/rthk_podcast'
 SHOW_ID = '6DVYbYCCvSBreKzyStsnFp'
 WIZARD_URL = f'https://creators.spotify.com/pod/show/{SHOW_ID}/episode/wizard'
 EPISODES_URL = f'https://creators.spotify.com/pod/show/{SHOW_ID}/episodes'
 CHROME_URL = 'http://localhost:9222'
+GITHUB_TOKEN = 'REMOVED_TOKEN'
+GITHUB_REPO = 'bunfung/my-rthk-podcast'
 
 ALLOWED_HOSTS = ["蘇奭", "邱逸", "馬鼎盛", "馮天樂"]
 CHANNEL = "radio1"
@@ -140,7 +146,6 @@ def js_eval(ws_url, expression):
 
 def set_file_input(ws_url, file_path):
     """設置文件 input"""
-    # 獲取 file input 的 nodeId
     doc = cdp_command(ws_url, 'DOM.getDocument', {'depth': -1})
     root_id = doc.get('result', {}).get('root', {}).get('nodeId', 1)
 
@@ -203,12 +208,103 @@ def fill_title(ws_url, title):
     time.sleep(1)
 
 
-def xdotool_type(text):
-    """用 xdotool 輸入文字（用於 ProseMirror 描述框）"""
-    subprocess.run(
-        ['xdotool', 'type', '--clearmodifiers', '--delay', '30', text],
-        env={**os.environ, 'DISPLAY': ':0'}
-    )
+def insert_description(ws_url, text):
+    """用 CDP Input.insertText 輸入描述到 ProseMirror"""
+    import asyncio
+    import websockets
+    import json as _json
+
+    async def _insert():
+        async with websockets.connect(ws_url) as ws:
+            # 先 focus 描述框
+            focus_cmd = {
+                'id': 1,
+                'method': 'Runtime.evaluate',
+                'params': {
+                    'expression': '''
+                        var desc = document.querySelector(".ProseMirror");
+                        if (desc) { desc.focus(); true; } else { false; }
+                    ''',
+                    'returnByValue': True
+                }
+            }
+            await ws.send(_json.dumps(focus_cmd))
+            await ws.recv()
+            await asyncio.sleep(0.5)
+
+            # 用 Input.insertText 輸入
+            insert_cmd = {
+                'id': 2,
+                'method': 'Input.insertText',
+                'params': {'text': text}
+            }
+            await ws.send(_json.dumps(insert_cmd))
+            await ws.recv()
+
+    asyncio.run(_insert())
+    time.sleep(1)
+
+
+def delete_mp3(mp3_path):
+    """刪除本地 MP3 檔案"""
+    try:
+        if os.path.exists(mp3_path):
+            os.remove(mp3_path)
+            logger.info(f"  🗑️ 已刪除 MP3: {mp3_path}")
+            return True
+    except Exception as e:
+        logger.warning(f"  ⚠️ 刪除 MP3 失敗: {e}")
+    return False
+
+
+def git_push_updates():
+    """將更新後的 JSON 檔案 push 到 GitHub"""
+    try:
+        result = subprocess.run(
+            ['git', '-C', SCRIPT_DIR, 'add',
+             'episodes.json', 'spotify_episode_mapping.json'],
+            capture_output=True, text=True
+        )
+        result = subprocess.run(
+            ['git', '-C', SCRIPT_DIR, 'diff', '--cached', '--quiet'],
+            capture_output=True
+        )
+        if result.returncode == 0:
+            logger.info("  📁 JSON 檔案無變化，跳過 git push")
+            return True
+
+        subprocess.run(
+            ['git', '-C', SCRIPT_DIR, 'commit', '-m',
+             f'Auto update: {time.strftime("%Y-%m-%d %H:%M")}'],
+            capture_output=True, text=True
+        )
+        push_result = subprocess.run(
+            ['git', '-C', SCRIPT_DIR, 'push'],
+            capture_output=True, text=True
+        )
+        if push_result.returncode == 0:
+            logger.info("  ✅ 已 push 更新到 GitHub")
+            return True
+        else:
+            logger.warning(f"  ⚠️ git push 失敗: {push_result.stderr}")
+            return False
+    except Exception as e:
+        logger.warning(f"  ⚠️ git push 出現錯誤: {e}")
+        return False
+
+
+def load_mapping():
+    """載入 spotify_episode_mapping.json"""
+    if os.path.exists(MAPPING_FILE):
+        with open(MAPPING_FILE, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    return {}
+
+
+def save_mapping(mapping):
+    """儲存 spotify_episode_mapping.json"""
+    with open(MAPPING_FILE, 'w', encoding='utf-8') as f:
+        json.dump(mapping, f, ensure_ascii=False, indent=2)
 
 
 def upload_episode(ws_url, mp3_path, title, ep_date):
@@ -253,18 +349,11 @@ def upload_episode(ws_url, mp3_path, title, ep_date):
     logger.info(f"  填寫標題: {title}")
     fill_title(ws_url, title)
 
-    # 點擊描述框
+    # 填寫描述（用 CDP Input.insertText）
     logger.info(f"  填寫描述...")
-    js_eval(ws_url, '''
-        var desc = document.querySelector(".ProseMirror");
-        if (desc) desc.focus();
-    ''')
-    time.sleep(1)
-
-    # 用 xdotool 輸入描述（英文，避免中文輸入問題）
     desc_text = f"RTHK Radio 1 podcast - {ep_date}. Expand your knowledge horizons!"
-    xdotool_type(desc_text)
-    time.sleep(2)
+    insert_description(ws_url, desc_text)
+    time.sleep(1)
 
     # 點擊 Next 進入 Review
     logger.info(f"  點擊 Next 進入 Review...")
@@ -328,6 +417,9 @@ def main():
     with open(EPISODES_FILE, 'r', encoding='utf-8') as f:
         episodes = json.load(f)
 
+    # 載入 mapping
+    mapping = load_mapping()
+
     # 連接 Chrome
     ws_url = get_chrome_tab()
     if not ws_url:
@@ -335,7 +427,7 @@ def main():
         sys.exit(1)
     logger.info(f"已連接 Chrome: {ws_url[:50]}...")
 
-    # 獲取 Spotify 上已有的集數
+    # 獲取 Spotify 上已有的集數（用於雙重確認）
     logger.info("獲取 Spotify 上已有的集數...")
     spotify_content = get_spotify_published_titles(ws_url)
 
@@ -352,10 +444,21 @@ def main():
             logger.info(f"跳過 {title} - MP3 不存在")
             continue
 
-        # 檢查是否已在 Spotify 上
+        # 檢查是否已在 mapping 中（本地記錄）
         display_title = f"{title} - {ep_date}"
+        if ep_id in mapping:
+            logger.info(f"跳過 {display_title} - 已在本地 mapping 記錄中")
+            # 刪除多餘的 MP3（已上傳但未刪除的）
+            delete_mp3(mp3_path)
+            continue
+
+        # 雙重確認：檢查是否已在 Spotify 上
         if display_title in spotify_content:
-            logger.info(f"跳過 {display_title} - 已在 Spotify 上")
+            logger.info(f"跳過 {display_title} - 已在 Spotify 上（雙重確認）")
+            # 更新本地 mapping
+            mapping[ep_id] = {'title': display_title, 'date': ep_date}
+            save_mapping(mapping)
+            delete_mp3(mp3_path)
             continue
 
         # 檢查主持人條件
@@ -376,6 +479,8 @@ def main():
 
     if not to_upload:
         logger.info("沒有需要上傳的集數")
+        # 即使無新集數，也 push 一次確保 JSON 同步
+        git_push_updates()
         return
 
     logger.info(f"共 {len(to_upload)} 集需要上傳")
@@ -388,11 +493,24 @@ def main():
         ok = upload_episode(ws_url, ep['mp3_path'], ep['title'], ep['date'])
         if ok:
             success += 1
+            # 更新本地 mapping
+            mapping[ep['ep_id']] = {
+                'title': ep['title'],
+                'date': ep['date'],
+                'uploaded_at': time.strftime('%Y-%m-%d %H:%M:%S')
+            }
+            save_mapping(mapping)
+            # 刪除已上傳的 MP3
+            delete_mp3(ep['mp3_path'])
         else:
             failed += 1
         time.sleep(3)
 
     logger.info(f"\n上傳完成: 成功 {success}，失敗 {failed}")
+
+    # Push 更新到 GitHub
+    logger.info("\n同步更新到 GitHub...")
+    git_push_updates()
 
 
 if __name__ == '__main__':
