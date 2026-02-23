@@ -257,12 +257,57 @@ def delete_mp3(mp3_path):
     return False
 
 
+def sync_skill_directory():
+    """將最新腳本同步到 skill 目錄"""
+    skill_scripts_dir = os.path.join(SCRIPT_DIR, 'skill', 'scripts')
+    skill_md_path = os.path.join(SCRIPT_DIR, 'skill', 'SKILL.md')
+    manus_skill_dir = '/home/ubuntu/skills/rthk-podcast-automation'
+
+    # 確保 skill 目錄存在
+    os.makedirs(skill_scripts_dir, exist_ok=True)
+
+    # 同步所有腳本到 skill/scripts/
+    scripts_to_sync = [
+        'auto_upload.py',
+        'download_qualified.py',
+        'update.py',
+        'daily_update.sh',
+        'telegram_notify.py'
+    ]
+    for script in scripts_to_sync:
+        src = os.path.join(SCRIPT_DIR, script)
+        dst = os.path.join(skill_scripts_dir, script)
+        if os.path.exists(src):
+            import shutil
+            shutil.copy2(src, dst)
+
+    # 同步 SKILL.md（從 Manus skill 目錄）
+    manus_skill_md = os.path.join(manus_skill_dir, 'SKILL.md')
+    if os.path.exists(manus_skill_md):
+        import shutil
+        shutil.copy2(manus_skill_md, skill_md_path)
+        # 同時同步 Manus skill 目錄的腳本
+        manus_scripts_dir = os.path.join(manus_skill_dir, 'scripts')
+        os.makedirs(manus_scripts_dir, exist_ok=True)
+        for script in scripts_to_sync:
+            src = os.path.join(SCRIPT_DIR, script)
+            dst = os.path.join(manus_scripts_dir, script)
+            if os.path.exists(src):
+                shutil.copy2(src, dst)
+
+    logger.info("  📦 Skill 目錄已同步最新腳本")
+
+
 def git_push_updates():
-    """將更新後的 JSON 檔案 push 到 GitHub"""
+    """將更新後的 JSON 檔案及 skill 目錄 push 到 GitHub"""
     try:
+        # 先同步 skill 目錄
+        sync_skill_directory()
+
         result = subprocess.run(
             ['git', '-C', SCRIPT_DIR, 'add',
-             'episodes.json', 'spotify_episode_mapping.json'],
+             'episodes.json', 'spotify_episode_mapping.json',
+             'skill/'],
             capture_output=True, text=True
         )
         result = subprocess.run(
@@ -270,7 +315,7 @@ def git_push_updates():
             capture_output=True
         )
         if result.returncode == 0:
-            logger.info("  📁 JSON 檔案無變化，跳過 git push")
+            logger.info("  📁 檔案無變化，跳過 git push")
             return True
 
         subprocess.run(
@@ -283,7 +328,7 @@ def git_push_updates():
             capture_output=True, text=True
         )
         if push_result.returncode == 0:
-            logger.info("  ✅ 已 push 更新到 GitHub")
+            logger.info("  ✅ 已 push 更新到 GitHub（含 skill 目錄）")
             return True
         else:
             logger.warning(f"  ⚠️ git push 失敗: {push_result.stderr}")
