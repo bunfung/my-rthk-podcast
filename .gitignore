@@ -35,3 +35,4 @@ download_mp3.py
 
 # 排除日誌
 *.log
+.env
