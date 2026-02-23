@@ -1,0 +1,37 @@
+# 排除 MP3 檔案（太大，臨時用途）
+mp3/
+
+# 排除 Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# 排除舊版本腳本
+check_hosts.py
+check_hosts_v2.py
+check_hosts_v3.py
+check_hosts_v4.py
+update.py.bak
+
+# 排除 socket 檔案
+*.ctl
+
+# 排除 puppeteer 目錄
+puppeteer_upload/
+
+# 排除臨時腳本
+fix_untitled_episodes.py
+publish_untitled.py
+upload_all_qualified.py
+upload_cdp.py
+upload_remaining.py
+delete_untitled.py
+manage_episodes.py
+anchor_upload.py
+app.py
+scraper.py
+batch_download.sh
+download_mp3.py
+
+# 排除日誌
+*.log
