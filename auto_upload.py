@@ -508,6 +508,11 @@ def main():
 
     logger.info(f"\n上傳完成: 成功 {success}，失敗 {failed}")
 
+    # 寫入上傳統計供 daily_update.sh 讀取
+    stats = {'success': success, 'failed': failed}
+    with open('/tmp/upload_stats.json', 'w') as f:
+        json.dump(stats, f)
+
     # Push 更新到 GitHub
     logger.info("\n同步更新到 GitHub...")
     git_push_updates()
