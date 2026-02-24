@@ -39,7 +39,7 @@ SHOW_ID = '6DVYbYCCvSBreKzyStsnFp'
 WIZARD_URL = f'https://creators.spotify.com/pod/show/{SHOW_ID}/episode/wizard'
 EPISODES_URL = f'https://creators.spotify.com/pod/show/{SHOW_ID}/episodes'
 CHROME_URL = 'http://localhost:9222'
-GITHUB_TOKEN = 'REMOVED_TOKEN'
+GITHUB_TOKEN = 'GITHUB_TOKEN_REMOVED'
 GITHUB_REPO = 'bunfung/my-rthk-podcast'
 
 ALLOWED_HOSTS = ["蘇奭", "邱逸", "馬鼎盛", "馮天樂"]
