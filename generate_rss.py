@@ -1,125 +1,150 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
-生成 RTHK 講東講西 Podcast RSS feed
-使用 Internet Archive 的 MP3 URL
+從 ia_mapping.json 生成 RSS feed XML
+供 Downcast 等 Podcast 客戶端訂閱
 """
-import os
 import json
+import os
+import re
 from datetime import datetime
-from email.utils import formatdate
-import xml.etree.ElementTree as ET
-from xml.dom import minidom
 
-PODCAST_TITLE = "RTHK 講東講西"
-PODCAST_DESCRIPTION = "香港電台第一台《講東講西》節目，探討歷史、文化、社會等各類議題。"
-PODCAST_LINK = "https://www.rthk.hk/radio/radio1/programme/Free_as_the_wind"
-PODCAST_LANGUAGE = "zh-hk"
-PODCAST_AUTHOR = "RTHK Radio 1"
-PODCAST_IMAGE = "https://bunfung.github.io/my-rthk-podcast/logo.jpg"
 BASE_DIR = '/home/ubuntu/rthk_podcast'
+IA_MAPPING_FILE = f'{BASE_DIR}/ia_mapping.json'
+FEED_FILE = f'{BASE_DIR}/feed.xml'
 
-def parse_date(date_str):
+# Podcast 基本資訊
+PODCAST_TITLE = "RTHK 講東講西"
+PODCAST_DESCRIPTION = "香港電台第一台《講東講西》節目精選集數，主持人：蘇奭、邱逸、馬鼎盛、馮天樂"
+PODCAST_LINK = "https://www.rthk.hk/radio/radio1/programme/Free_as_the_wind"
+PODCAST_IMAGE = "https://www.rthk.hk/assets/images/radio/radio1/programme/Free_as_the_wind/logo.jpg"
+PODCAST_AUTHOR = "RTHK Radio 1"
+PODCAST_EMAIL = "bunfung.any@gmail.com"
+PODCAST_LANGUAGE = "zh-hk"
+FEED_URL = "https://bunfung.github.io/my-rthk-podcast/feed.xml"
+
+
+def parse_date_to_rfc2822(date_str):
+    """將 DD/MM/YYYY 格式轉換為 RFC 2822 格式"""
     try:
         dt = datetime.strptime(date_str, "%d/%m/%Y")
-        return formatdate(dt.timestamp(), usegmt=True)
+        # RFC 2822 格式
+        return dt.strftime("%a, %d %b %Y 22:30:00 +0800")
     except:
-        return formatdate(usegmt=True)
+        return datetime.now().strftime("%a, %d %b %Y 22:30:00 +0800")
+
+
+def escape_xml(text):
+    """轉義 XML 特殊字符"""
+    if not text:
+        return ""
+    text = str(text)
+    text = text.replace('&', '&amp;')
+    text = text.replace('<', '&lt;')
+    text = text.replace('>', '&gt;')
+    text = text.replace('"', '&quot;')
+    text = text.replace("'", '&apos;')
+    return text
+
 
 def generate_rss():
-    with open(f'{BASE_DIR}/episodes.json', 'r', encoding='utf-8') as f:
-        episodes = json.load(f)
+    """生成 RSS feed"""
+    # 讀取 ia_mapping
+    if not os.path.exists(IA_MAPPING_FILE):
+        print(f"錯誤：找不到 {IA_MAPPING_FILE}")
+        return False
     
-    ia_mapping = {}
-    ia_mapping_path = f'{BASE_DIR}/ia_mapping.json'
-    if os.path.exists(ia_mapping_path):
-        with open(ia_mapping_path, 'r', encoding='utf-8') as f:
-            ia_mapping = json.load(f)
+    with open(IA_MAPPING_FILE, 'r', encoding='utf-8') as f:
+        ia_mapping = json.load(f)
     
-    published_episodes = []
-    for ep in episodes:
-        ep_id = str(ep.get('id', ''))
-        if ep_id in ia_mapping and ia_mapping[ep_id].get('http_code') == 200:
-            ep['ia_url'] = ia_mapping[ep_id]['url']
-            ep['ia_size'] = ia_mapping[ep_id].get('size', 0)
-            published_episodes.append(ep)
+    print(f"讀取到 {len(ia_mapping)} 集")
     
+    # 按日期排序（最新在前）
+    episodes = []
+    for ep_id, info in ia_mapping.items():
+        episodes.append({
+            'id': ep_id,
+            'title': info.get('title', f'Episode {ep_id}'),
+            'date': info.get('date', ''),
+            'url': info.get('url', ''),
+            'size': info.get('size', 0),
+            'item_id': info.get('item_id', f'rthk-jiang-dong-jiang-xi-{ep_id}'),
+        })
+    
+    # 按日期排序（最新在前）
     def sort_key(ep):
         try:
-            return datetime.strptime(ep.get('date', '01/01/2000'), "%d/%m/%Y")
+            return datetime.strptime(ep['date'], "%d/%m/%Y")
         except:
             return datetime.min
     
-    published_episodes.sort(key=sort_key, reverse=True)
-    print(f"生成 RSS feed，共 {len(published_episodes)} 集")
+    episodes.sort(key=sort_key, reverse=True)
     
-    rss = ET.Element('rss')
-    rss.set('version', '2.0')
-    rss.set('xmlns:itunes', 'http://www.itunes.com/dtds/podcast-1.0.dtd')
-    rss.set('xmlns:content', 'http://purl.org/rss/1.0/modules/content/')
+    # 生成 RSS XML
+    now_rfc2822 = datetime.now().strftime("%a, %d %b %Y %H:%M:%S +0800")
     
-    channel = ET.SubElement(rss, 'channel')
-    ET.SubElement(channel, 'title').text = PODCAST_TITLE
-    ET.SubElement(channel, 'link').text = PODCAST_LINK
-    ET.SubElement(channel, 'description').text = PODCAST_DESCRIPTION
-    ET.SubElement(channel, 'language').text = PODCAST_LANGUAGE
-    ET.SubElement(channel, 'lastBuildDate').text = formatdate(usegmt=True)
-    ET.SubElement(channel, 'itunes:author').text = PODCAST_AUTHOR
-    ET.SubElement(channel, 'itunes:summary').text = PODCAST_DESCRIPTION
-    ET.SubElement(channel, 'itunes:explicit').text = 'no'
+    xml_lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">',
+        '  <channel>',
+        f'    <title>{escape_xml(PODCAST_TITLE)}</title>',
+        f'    <description>{escape_xml(PODCAST_DESCRIPTION)}</description>',
+        f'    <link>{PODCAST_LINK}</link>',
+        f'    <language>{PODCAST_LANGUAGE}</language>',
+        f'    <lastBuildDate>{now_rfc2822}</lastBuildDate>',
+        f'    <atom:link href="{FEED_URL}" rel="self" type="application/rss+xml"/>',
+        f'    <itunes:author>{escape_xml(PODCAST_AUTHOR)}</itunes:author>',
+        f'    <itunes:summary>{escape_xml(PODCAST_DESCRIPTION)}</itunes:summary>',
+        f'    <itunes:owner>',
+        f'      <itunes:name>{escape_xml(PODCAST_AUTHOR)}</itunes:name>',
+        f'      <itunes:email>{PODCAST_EMAIL}</itunes:email>',
+        f'    </itunes:owner>',
+        f'    <itunes:image href="{PODCAST_IMAGE}"/>',
+        f'    <itunes:category text="Society &amp; Culture"/>',
+        f'    <itunes:explicit>false</itunes:explicit>',
+    ]
     
-    itunes_owner = ET.SubElement(channel, 'itunes:owner')
-    ET.SubElement(itunes_owner, 'itunes:name').text = PODCAST_AUTHOR
-    ET.SubElement(itunes_owner, 'itunes:email').text = 'bunfung.any@gmail.com'
-    
-    itunes_image = ET.SubElement(channel, 'itunes:image')
-    itunes_image.set('href', PODCAST_IMAGE)
-    
-    image = ET.SubElement(channel, 'image')
-    ET.SubElement(image, 'url').text = PODCAST_IMAGE
-    ET.SubElement(image, 'title').text = PODCAST_TITLE
-    ET.SubElement(image, 'link').text = PODCAST_LINK
-    
-    itunes_category = ET.SubElement(channel, 'itunes:category')
-    itunes_category.set('text', 'Society &amp; Culture')
-    
-    for ep in published_episodes:
-        ep_id = str(ep.get('id', ''))
-        title = ep.get('title', f'Episode {ep_id}')
-        date = ep.get('date', '')
-        ia_url = ep.get('ia_url', '')
-        ia_size = ep.get('ia_size', 0)
+    for ep in episodes:
+        title = ep['title']
+        date = ep['date']
+        url = ep['url']
+        size = ep['size']
+        ep_id = ep['id']
+        item_id = ep['item_id']
         
-        item = ET.SubElement(channel, 'item')
-        ET.SubElement(item, 'title').text = f"{title} - {date}"
-        ET.SubElement(item, 'description').text = f"RTHK Radio 1 講東講西 - {title} ({date})"
-        ET.SubElement(item, 'pubDate').text = parse_date(date)
-        ET.SubElement(item, 'guid').text = f"rthk-jiang-dong-jiang-xi-{ep_id}"
-        ET.SubElement(item, 'link').text = ia_url
+        pub_date = parse_date_to_rfc2822(date)
+        ia_page_url = f"https://archive.org/details/{item_id}"
         
-        enclosure = ET.SubElement(item, 'enclosure')
-        enclosure.set('url', ia_url)
-        enclosure.set('type', 'audio/mpeg')
-        enclosure.set('length', str(ia_size))
-        
-        ET.SubElement(item, 'itunes:title').text = f"{title} - {date}"
-        ET.SubElement(item, 'itunes:summary').text = f"RTHK Radio 1 講東講西 - {title} ({date})"
-        ET.SubElement(item, 'itunes:explicit').text = 'no'
-        ET.SubElement(item, 'itunes:author').text = PODCAST_AUTHOR
+        xml_lines.extend([
+            '    <item>',
+            f'      <title>{escape_xml(title)} ({escape_xml(date)})</title>',
+            f'      <description>{escape_xml(f"RTHK 講東講西 - {title}，播出日期：{date}")}</description>',
+            f'      <link>{ia_page_url}</link>',
+            f'      <guid isPermaLink="false">{item_id}</guid>',
+            f'      <pubDate>{pub_date}</pubDate>',
+            f'      <enclosure url="{url}" length="{size}" type="audio/mpeg"/>',
+            f'      <itunes:title>{escape_xml(title)}</itunes:title>',
+            f'      <itunes:author>{escape_xml(PODCAST_AUTHOR)}</itunes:author>',
+            f'      <itunes:summary>{escape_xml(f"RTHK 講東講西 - {title}，播出日期：{date}")}</itunes:summary>',
+            f'      <itunes:duration>5400</itunes:duration>',
+            f'      <itunes:explicit>false</itunes:explicit>',
+            '    </item>',
+        ])
     
-    xml_str = ET.tostring(rss, encoding='unicode')
-    dom = minidom.parseString(xml_str)
-    pretty_xml = dom.toprettyxml(indent='  ', encoding='UTF-8').decode('utf-8')
-    lines = pretty_xml.split('\n')
-    if lines[0].startswith('<?xml'):
-        lines[0] = '<?xml version="1.0" encoding="UTF-8"?>'
-    pretty_xml = '\n'.join(lines)
+    xml_lines.extend([
+        '  </channel>',
+        '</rss>',
+    ])
     
-    output_path = f'{BASE_DIR}/feed.xml'
-    with open(output_path, 'w', encoding='utf-8') as f:
-        f.write(pretty_xml)
+    xml_content = '\n'.join(xml_lines)
     
-    print(f"✅ RSS feed 已生成：{output_path}")
-    return output_path
+    with open(FEED_FILE, 'w', encoding='utf-8') as f:
+        f.write(xml_content)
+    
+    print(f"✅ RSS feed 已生成: {FEED_FILE}")
+    print(f"   共 {len(episodes)} 集")
+    return True
+
 
 if __name__ == '__main__':
     generate_rss()

@@ -1,48 +1,293 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>RTHK 講東講西</title>
+    <description>香港電台第一台《講東講西》節目精選集數，主持人：蘇奭、邱逸、馬鼎盛、馮天樂</description>
     <link>https://www.rthk.hk/radio/radio1/programme/Free_as_the_wind</link>
-    <description>香港電台第一台《講東講西》節目，探討歷史、文化、社會等各類議題。</description>
     <language>zh-hk</language>
-    <lastBuildDate>Tue, 24 Feb 2026 08:17:09 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 24 Feb 2026 04:29:58 +0800</lastBuildDate>
+    <atom:link href="https://bunfung.github.io/my-rthk-podcast/feed.xml" rel="self" type="application/rss+xml"/>
     <itunes:author>RTHK Radio 1</itunes:author>
-    <itunes:summary>香港電台第一台《講東講西》節目，探討歷史、文化、社會等各類議題。</itunes:summary>
-    <itunes:explicit>no</itunes:explicit>
+    <itunes:summary>香港電台第一台《講東講西》節目精選集數，主持人：蘇奭、邱逸、馬鼎盛、馮天樂</itunes:summary>
     <itunes:owner>
       <itunes:name>RTHK Radio 1</itunes:name>
       <itunes:email>bunfung.any@gmail.com</itunes:email>
     </itunes:owner>
-    <itunes:image href="https://bunfung.github.io/my-rthk-podcast/logo.jpg"/>
-    <image>
-      <url>https://bunfung.github.io/my-rthk-podcast/logo.jpg</url>
-      <title>RTHK 講東講西</title>
-      <link>https://www.rthk.hk/radio/radio1/programme/Free_as_the_wind</link>
-    </image>
-    <itunes:category text="Society &amp;amp; Culture"/>
+    <itunes:image href="https://www.rthk.hk/assets/images/radio/radio1/programme/Free_as_the_wind/logo.jpg"/>
+    <itunes:category text="Society &amp; Culture"/>
+    <itunes:explicit>false</itunes:explicit>
     <item>
-      <title>探討「大展鴻圖」這四個字 - 20/02/2026</title>
-      <description>RTHK Radio 1 講東講西 - 探討「大展鴻圖」這四個字 (20/02/2026)</description>
-      <pubDate>Fri, 20 Feb 2026 05:00:00 GMT</pubDate>
-      <guid>rthk-jiang-dong-jiang-xi-1081342</guid>
-      <link>https://archive.org/download/rthk-jiang-dong-jiang-xi-1081342/1081342_0.mp3</link>
-      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1081342/1081342_0.mp3" type="audio/mpeg" length="34233199"/>
-      <itunes:title>探討「大展鴻圖」這四個字 - 20/02/2026</itunes:title>
-      <itunes:summary>RTHK Radio 1 講東講西 - 探討「大展鴻圖」這四個字 (20/02/2026)</itunes:summary>
-      <itunes:explicit>no</itunes:explicit>
+      <title>馬到功成 (18/02/2026)</title>
+      <description>RTHK 講東講西 - 馬到功成，播出日期：18/02/2026</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1081081</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1081081</guid>
+      <pubDate>Wed, 18 Feb 2026 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1081081/1081081_0.mp3" length="40370176" type="audio/mpeg"/>
+      <itunes:title>馬到功成</itunes:title>
       <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 馬到功成，播出日期：18/02/2026</itunes:summary>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
     </item>
     <item>
-      <title>馬到功成 - 18/02/2026</title>
-      <description>RTHK Radio 1 講東講西 - 馬到功成 (18/02/2026)</description>
-      <pubDate>Wed, 18 Feb 2026 05:00:00 GMT</pubDate>
-      <guid>rthk-jiang-dong-jiang-xi-1081081</guid>
-      <link>https://archive.org/download/rthk-jiang-dong-jiang-xi-1081081/1081081_0.mp3</link>
-      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1081081/1081081_0.mp3" type="audio/mpeg" length="40401232"/>
-      <itunes:title>馬到功成 - 18/02/2026</itunes:title>
-      <itunes:summary>RTHK Radio 1 講東講西 - 馬到功成 (18/02/2026)</itunes:summary>
-      <itunes:explicit>no</itunes:explicit>
+      <title>蘇聯援助西班牙共和國 (16/02/2026)</title>
+      <description>RTHK 講東講西 - 蘇聯援助西班牙共和國，播出日期：16/02/2026</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1080674</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1080674</guid>
+      <pubDate>Mon, 16 Feb 2026 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1080674/1080674_0.mp3" length="36169186" type="audio/mpeg"/>
+      <itunes:title>蘇聯援助西班牙共和國</itunes:title>
       <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 蘇聯援助西班牙共和國，播出日期：16/02/2026</itunes:summary>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>千秋功罪秦始皇 (11/02/2026)</title>
+      <description>RTHK 講東講西 - 千秋功罪秦始皇，播出日期：11/02/2026</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1079704</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1079704</guid>
+      <pubDate>Wed, 11 Feb 2026 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1079704/1079704_0.mp3" length="34281265" type="audio/mpeg"/>
+      <itunes:title>千秋功罪秦始皇</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 千秋功罪秦始皇，播出日期：11/02/2026</itunes:summary>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>17至19世紀英國賣妻合法化 (09/02/2026)</title>
+      <description>RTHK 講東講西 - 17至19世紀英國賣妻合法化，播出日期：09/02/2026</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1079208</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1079208</guid>
+      <pubDate>Mon, 09 Feb 2026 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1079208/1079208_0.mp3" length="36313173" type="audio/mpeg"/>
+      <itunes:title>17至19世紀英國賣妻合法化</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 17至19世紀英國賣妻合法化，播出日期：09/02/2026</itunes:summary>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>王陽明和佛學 (28/01/2026)</title>
+      <description>RTHK 講東講西 - 王陽明和佛學，播出日期：28/01/2026</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1076842</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1076842</guid>
+      <pubDate>Wed, 28 Jan 2026 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1076842/1076842_0.mp3" length="33969258" type="audio/mpeg"/>
+      <itunes:title>王陽明和佛學</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 王陽明和佛學，播出日期：28/01/2026</itunes:summary>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>納粹軍官挽救一千猶太人 (26/01/2026)</title>
+      <description>RTHK 講東講西 - 納粹軍官挽救一千猶太人，播出日期：26/01/2026</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1076337</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1076337</guid>
+      <pubDate>Mon, 26 Jan 2026 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1076337/1076337_0.mp3" length="37249402" type="audio/mpeg"/>
+      <itunes:title>納粹軍官挽救一千猶太人</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 納粹軍官挽救一千猶太人，播出日期：26/01/2026</itunes:summary>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>赤馬紅羊是禍是福？ (21/01/2026)</title>
+      <description>RTHK 講東講西 - 赤馬紅羊是禍是福？，播出日期：21/01/2026</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1075450</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1075450</guid>
+      <pubDate>Wed, 21 Jan 2026 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1075450/1075450_0.mp3" length="34072912" type="audio/mpeg"/>
+      <itunes:title>赤馬紅羊是禍是福？</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 赤馬紅羊是禍是福？，播出日期：21/01/2026</itunes:summary>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>重慶防空洞菜市場 (19/01/2026)</title>
+      <description>RTHK 講東講西 - 重慶防空洞菜市場，播出日期：19/01/2026</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1073874</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1073874</guid>
+      <pubDate>Mon, 19 Jan 2026 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1073874/1073874_0.mp3" length="36129062" type="audio/mpeg"/>
+      <itunes:title>重慶防空洞菜市場</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 重慶防空洞菜市場，播出日期：19/01/2026</itunes:summary>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>巨貪嚴嵩 (31/12/2025)</title>
+      <description>RTHK 講東講西 - 巨貪嚴嵩，播出日期：31/12/2025</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1069742</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1069742</guid>
+      <pubDate>Wed, 31 Dec 2025 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1069742/1069742_0.mp3" length="33321004" type="audio/mpeg"/>
+      <itunes:title>巨貪嚴嵩</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 巨貪嚴嵩，播出日期：31/12/2025</itunes:summary>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>農民運動大王彭湃 (29/12/2025)</title>
+      <description>RTHK 講東講西 - 農民運動大王彭湃，播出日期：29/12/2025</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1069187</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1069187</guid>
+      <pubDate>Mon, 29 Dec 2025 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1069187/1069187_0.mp3" length="37192977" type="audio/mpeg"/>
+      <itunes:title>農民運動大王彭湃</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 農民運動大王彭湃，播出日期：29/12/2025</itunes:summary>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>大禮議 (24/12/2025)</title>
+      <description>RTHK 講東講西 - 大禮議，播出日期：24/12/2025</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1068465</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1068465</guid>
+      <pubDate>Wed, 24 Dec 2025 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1068465/1068465_0.mp3" length="34041147" type="audio/mpeg"/>
+      <itunes:title>大禮議</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 大禮議，播出日期：24/12/2025</itunes:summary>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>中國電建調查75億元在建項目 (22/12/2025)</title>
+      <description>RTHK 講東講西 - 中國電建調查75億元在建項目，播出日期：22/12/2025</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1068010</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1068010</guid>
+      <pubDate>Mon, 22 Dec 2025 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1068010/1068010_0.mp3" length="36769167" type="audio/mpeg"/>
+      <itunes:title>中國電建調查75億元在建項目</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 中國電建調查75億元在建項目，播出日期：22/12/2025</itunes:summary>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>古今的眼睛與視力 (26/11/2025)</title>
+      <description>RTHK 講東講西 - 古今的眼睛與視力，播出日期：26/11/2025</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1062675</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1062675</guid>
+      <pubDate>Wed, 26 Nov 2025 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1062675/1062675_0.mp3" length="34217108" type="audio/mpeg"/>
+      <itunes:title>古今的眼睛與視力</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 古今的眼睛與視力，播出日期：26/11/2025</itunes:summary>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>粵語流行曲的文化流向 (24/11/2025)</title>
+      <description>RTHK 講東講西 - 粵語流行曲的文化流向，播出日期：24/11/2025</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1062184</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1062184</guid>
+      <pubDate>Mon, 24 Nov 2025 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1062184/1062184_0.mp3" length="34352945" type="audio/mpeg"/>
+      <itunes:title>粵語流行曲的文化流向</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 粵語流行曲的文化流向，播出日期：24/11/2025</itunes:summary>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>明憲宗與萬貴妃 (19/11/2025)</title>
+      <description>RTHK 講東講西 - 明憲宗與萬貴妃，播出日期：19/11/2025</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1061176</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1061176</guid>
+      <pubDate>Wed, 19 Nov 2025 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1061176/1061176_0.mp3" length="34137069" type="audio/mpeg"/>
+      <itunes:title>明憲宗與萬貴妃</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 明憲宗與萬貴妃，播出日期：19/11/2025</itunes:summary>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>一孩政策三十六年 (17/11/2025)</title>
+      <description>RTHK 講東講西 - 一孩政策三十六年，播出日期：17/11/2025</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1060655</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1060655</guid>
+      <pubDate>Mon, 17 Nov 2025 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1060655/1060655_0.mp3" length="32617369" type="audio/mpeg"/>
+      <itunes:title>一孩政策三十六年</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 一孩政策三十六年，播出日期：17/11/2025</itunes:summary>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>朱高煦之亂 (29/10/2025)</title>
+      <description>RTHK 講東講西 - 朱高煦之亂，播出日期：29/10/2025</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1056640</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1056640</guid>
+      <pubDate>Wed, 29 Oct 2025 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1056640/1056640_0.mp3" length="42081428" type="audio/mpeg"/>
+      <itunes:title>朱高煦之亂</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 朱高煦之亂，播出日期：29/10/2025</itunes:summary>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>香港體育會百年歷史 (28/10/2025)</title>
+      <description>RTHK 講東講西 - 香港體育會百年歷史，播出日期：28/10/2025</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1056442</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1056442</guid>
+      <pubDate>Tue, 28 Oct 2025 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1056442/1056442_0.mp3" length="35345180" type="audio/mpeg"/>
+      <itunes:title>香港體育會百年歷史</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 香港體育會百年歷史，播出日期：28/10/2025</itunes:summary>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>二戰美軍在巴黎腐敗 (27/10/2025)</title>
+      <description>RTHK 講東講西 - 二戰美軍在巴黎腐敗，播出日期：27/10/2025</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1056165</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1056165</guid>
+      <pubDate>Mon, 27 Oct 2025 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1056165/1056165_0.mp3" length="36472834" type="audio/mpeg"/>
+      <itunes:title>二戰美軍在巴黎腐敗</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 二戰美軍在巴黎腐敗，播出日期：27/10/2025</itunes:summary>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>中史科優化 (22/10/2025)</title>
+      <description>RTHK 講東講西 - 中史科優化，播出日期：22/10/2025</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1055176</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1055176</guid>
+      <pubDate>Wed, 22 Oct 2025 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1055176/1055176_0.mp3" length="35129095" type="audio/mpeg"/>
+      <itunes:title>中史科優化</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 中史科優化，播出日期：22/10/2025</itunes:summary>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>陳景潤的故事 (20/10/2025)</title>
+      <description>RTHK 講東講西 - 陳景潤的故事，播出日期：20/10/2025</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1054724</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1054724</guid>
+      <pubDate>Mon, 20 Oct 2025 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1054724/1054724_0.mp3" length="33347584" type="audio/mpeg"/>
+      <itunes:title>陳景潤的故事</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 陳景潤的故事，播出日期：20/10/2025</itunes:summary>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
     </item>
   </channel>
 </rss>
