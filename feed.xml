@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
+  <channel>
+    <title>RTHK 講東講西</title>
+    <link>https://www.rthk.hk/radio/radio1/programme/Free_as_the_wind</link>
+    <description>香港電台第一台《講東講西》節目，探討歷史、文化、社會等各類議題。</description>
+    <language>zh-hk</language>
+    <lastBuildDate>Tue, 24 Feb 2026 08:17:09 GMT</lastBuildDate>
+    <itunes:author>RTHK Radio 1</itunes:author>
+    <itunes:summary>香港電台第一台《講東講西》節目，探討歷史、文化、社會等各類議題。</itunes:summary>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:owner>
+      <itunes:name>RTHK Radio 1</itunes:name>
+      <itunes:email>bunfung.any@gmail.com</itunes:email>
+    </itunes:owner>
+    <itunes:image href="https://bunfung.github.io/my-rthk-podcast/logo.jpg"/>
+    <image>
+      <url>https://bunfung.github.io/my-rthk-podcast/logo.jpg</url>
+      <title>RTHK 講東講西</title>
+      <link>https://www.rthk.hk/radio/radio1/programme/Free_as_the_wind</link>
+    </image>
+    <itunes:category text="Society &amp;amp; Culture"/>
+    <item>
+      <title>探討「大展鴻圖」這四個字 - 20/02/2026</title>
+      <description>RTHK Radio 1 講東講西 - 探討「大展鴻圖」這四個字 (20/02/2026)</description>
+      <pubDate>Fri, 20 Feb 2026 05:00:00 GMT</pubDate>
+      <guid>rthk-jiang-dong-jiang-xi-1081342</guid>
+      <link>https://archive.org/download/rthk-jiang-dong-jiang-xi-1081342/1081342_0.mp3</link>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1081342/1081342_0.mp3" type="audio/mpeg" length="34233199"/>
+      <itunes:title>探討「大展鴻圖」這四個字 - 20/02/2026</itunes:title>
+      <itunes:summary>RTHK Radio 1 講東講西 - 探討「大展鴻圖」這四個字 (20/02/2026)</itunes:summary>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:author>RTHK Radio 1</itunes:author>
+    </item>
+    <item>
+      <title>馬到功成 - 18/02/2026</title>
+      <description>RTHK Radio 1 講東講西 - 馬到功成 (18/02/2026)</description>
+      <pubDate>Wed, 18 Feb 2026 05:00:00 GMT</pubDate>
+      <guid>rthk-jiang-dong-jiang-xi-1081081</guid>
+      <link>https://archive.org/download/rthk-jiang-dong-jiang-xi-1081081/1081081_0.mp3</link>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1081081/1081081_0.mp3" type="audio/mpeg" length="40401232"/>
+      <itunes:title>馬到功成 - 18/02/2026</itunes:title>
+      <itunes:summary>RTHK Radio 1 講東講西 - 馬到功成 (18/02/2026)</itunes:summary>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:author>RTHK Radio 1</itunes:author>
+    </item>
+  </channel>
+</rss>
