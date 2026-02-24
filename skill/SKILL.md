@@ -1,13 +1,13 @@
 ---
 name: rthk-podcast-automation
-description: 自動化抓取 RTHK 《講東講西》節目集數、下載 MP3、上傳到 Spotify for Creators 並發送 Telegram 每日通知。適用於：設定或恢復 RTHK podcast 自動化系統、處理新集數上傳、管理 Spotify episodes、設定每日排程通知。
+description: 自動化抓取 RTHK 《講東講西》節目集數、下載 MP3、上傳到 Internet Archive、生成 RSS feed 並部署到 GitHub Pages，每日自動更新並發送 Telegram 通知。適用於：設定或恢復 RTHK podcast 自動化系統、處理新集數上傳、管理 RSS feed、設定每日排程通知。
 ---
 
 # RTHK 講東講西 Podcast 自動化系統
 
 ## 系統概覽
 
-自動化流程：RTHK 網站 → 篩選主持人 → 下載 MP3 → 上傳 Spotify → 刪除 MP3 → git push → Telegram 通知
+自動化流程：RTHK 網站 → 篩選主持人 → 下載 MP3 → 上傳 Internet Archive → 更新 ia_mapping.json → 生成 RSS feed → git push → Telegram 通知
 
 **主持人篩選條件：** 蘇奭、邱逸、馬鼎盛、馮天樂（四選一）
 
@@ -15,26 +15,28 @@ description: 自動化抓取 RTHK 《講東講西》節目集數、下載 MP3、
 
 | 參數 | 值 |
 |------|-----|
-| Spotify Show ID | `6DVYbYCCvSBreKzyStsnFp` |
 | RTHK 頻道 | `radio1` / `Free_as_the_wind` |
 | 工作目錄 | `/home/ubuntu/rthk_podcast/` |
 | MP3 目錄 | `/home/ubuntu/rthk_podcast/mp3/` |
 | GitHub Repo | `bunfung/my-rthk-podcast` |
-| GitHub Token | `REMOVED_TOKEN` |
+| RSS Feed URL | `https://bunfung.github.io/my-rthk-podcast/feed.xml` |
+| IA Account | `bunfung.any@gmail.com` |
+| IA Access Key | `kFTwDB2nXEGiWNYZ` |
+| IA Secret Key | `gPTTPew6CA8WyEXn` |
 | Telegram Bot Token | `8634320454:AAH6IpV7uN6-y_Gzd731Xm3O1-D76UCdnzQ` |
 | Telegram Chat ID | `220866475` |
-| RSS Feed URL | `https://anchor.fm/s/10f5e7a94/podcast/rss` |
-| Cron 時間 | 每日 08:00 |
+| Cron 時間 | 每日 09:00 HKT |
 
 ## 腳本說明
 
 | 腳本 | 用途 |
 |------|------|
-| `scripts/update.py` | 抓取 RTHK 網站最新集數，更新 `episodes.json` |
-| `scripts/download_qualified.py` | 下載符合主持人條件且未上傳的 MP3 |
-| `scripts/auto_upload.py` | 用 CDP 自動上傳 MP3 到 Spotify，上傳後刪除 MP3，完成後 git push |
-| `scripts/daily_update.sh` | 整合以上三個步驟，完成後發送 Telegram 通知 |
-| `scripts/telegram_notify.py` | Telegram 通知模組 |
+| `update.py` | 抓取 RTHK 網站最新集數，更新 `episodes.json` |
+| `download_qualified.py` | 下載符合主持人條件且未上傳的 MP3 |
+| `upload_all_to_ia.py` | 上傳 MP3 到 Internet Archive，更新 `ia_mapping.json` |
+| `generate_rss.py` | 從 `ia_mapping.json` 生成 RSS feed XML |
+| `daily_update_ia.sh` | 整合所有步驟，完成後發送 Telegram 通知 |
+| `telegram_notify.py` | Telegram 通知模組 |
 
 ## 恢復系統（Sandbox 重置後）
 
@@ -45,64 +47,79 @@ git clone https://github.com/bunfung/my-rthk-podcast.git /home/ubuntu/rthk_podca
 # 2. 建立 MP3 目錄
 mkdir -p /home/ubuntu/rthk_podcast/mp3
 
-# 3. 設定 git 認證
+# 3. 設定 git 認證（從 .env 讀取 token）
 cd /home/ubuntu/rthk_podcast
-git remote set-url origin https://REMOVED_TOKEN@github.com/bunfung/my-rthk-podcast.git
+source .env
+git remote set-url origin https://${GITHUB_TOKEN}@github.com/bunfung/my-rthk-podcast.git
 git config --global user.email "bunfung.any@gmail.com"
 git config --global user.name "bunfung"
 
 # 4. 安裝依賴
-sudo pip3 install requests websocket-client websockets
+sudo pip3 install requests internetarchive
 
-# 5. 啟動 Chrome（CDP 模式）
-chromium-browser --headless --remote-debugging-port=9222 --no-sandbox &
-sleep 3
+# 5. 設定 IA credentials
+mkdir -p ~/.config/internetarchive
+cat > ~/.config/internetarchive/ia.ini << 'EOF'
+[s3]
+access=kFTwDB2nXEGiWNYZ
+secret=gPTTPew6CA8WyEXn
+
+[cookies]
+logged-in-user=bunfung.any@gmail.com
+EOF
 
 # 6. 手動測試執行
-cd /home/ubuntu/rthk_podcast && bash daily_update.sh
+cd /home/ubuntu/rthk_podcast && bash daily_update_ia.sh
 ```
 
 ## 每日排程設定
 
 使用 Manus schedule tool 設定：
 - **類型：** cron
-- **表達式：** `0 0 8 * * *`（每日 08:00）
-- **執行內容：** 執行 `/home/ubuntu/rthk_podcast/daily_update.sh`
+- **表達式：** `0 0 9 * * *`（每日 09:00 HKT）
+- **執行內容：** 執行 `/home/ubuntu/rthk_podcast/daily_update_ia.sh`
 
-## Spotify 上傳流程（CDP 自動化）
+## Internet Archive 上傳流程
 
-`auto_upload.py` 使用 Chrome DevTools Protocol (CDP) 控制瀏覽器：
+`upload_all_to_ia.py` 使用 IA S3 API：
 
-1. 導航到 `https://creators.spotify.com/pod/show/{SHOW_ID}/episode/wizard`
-2. 用 `DOM.setFileInputFiles` 設置 MP3 檔案
-3. 等待上傳完成後點擊 Next
-4. 用 React setter 填入標題（格式：`{集數標題} - {DD/MM/YYYY}`）
-5. 用 `Input.insertText` CDP 方法填入描述到 ProseMirror 編輯器
-6. 進入 Review 頁面，選擇 Now，點擊 Publish
-7. 確認「Episode published!」後刪除本地 MP3
+1. 讀取 `spotify_episode_mapping.json` 獲取 rthk_id 列表
+2. 跳過已在 `ia_mapping.json` 中的集數
+3. 用 HTTP PUT 上傳到 `https://s3.us.archive.org/{item_id}/{filename}`
+4. item_id 格式：`rthk-jiang-dong-jiang-xi-{rthk_id}`
+5. metadata 中文字符需用 `uri(quote(value))` 格式
+6. 上傳成功後記錄到 `ia_mapping.json`
 
-**重要：** 描述欄必須用 `Input.insertText` CDP 方法，普通 JS `innerHTML` 無法觸發 React 狀態更新。
+## RSS Feed 生成
+
+`generate_rss.py` 從 `ia_mapping.json` 生成標準 RSS 2.0 + iTunes podcast feed：
+- 音頻 URL：`https://archive.org/download/{item_id}/{rthk_id}_0.mp3`
+- 部署到 GitHub Pages：`https://bunfung.github.io/my-rthk-podcast/feed.xml`
 
 ## 本地 JSON 記錄
 
 | 檔案 | 格式 | 用途 |
 |------|------|------|
-| `episodes.json` | `[{id, title, date, url, ...}]` | 所有已知集數 |
-| `spotify_episode_mapping.json` | `{ep_id: {title, date, uploaded_at}}` | 已上傳到 Spotify 的記錄 |
+| `episodes.json` | `[{id, title, date, audio_urls, ...}]` | 所有已知集數（含主持人篩選） |
+| `spotify_episode_mapping.json` | `[{rthk_id, title, date, spotify_id}]` | 已上傳到 Spotify 的記錄（含 rthk_id） |
+| `ia_mapping.json` | `{rthk_id: {item_id, url, title, date}}` | 已上傳到 IA 的記錄 |
 
-每次上傳後自動 `git push` 到 GitHub，確保記錄持久化。
+每次更新後自動 `git push` 到 GitHub，確保記錄持久化。
 
 ## Telegram 通知格式
 
 ```
 🎙️ RTHK 講東講西 Podcast 每日更新報告
-📅 2026-02-24 08:05
+📅 2026-02-24 09:05
 
 📋 新集數：1 集
 ⬇️ 已下載：1 個 MP3
 ⬆️ 成功上傳：1 集
+☁️ IA 總集數：22 集
 
 ✅ 今日更新完成！
+
+🔗 RSS: https://bunfung.github.io/my-rthk-podcast/feed.xml
 
 — Manus 自動通知系統
 ```
@@ -111,8 +128,9 @@ cd /home/ubuntu/rthk_podcast && bash daily_update.sh
 
 | 問題 | 原因 | 解決方法 |
 |------|------|----------|
-| Chrome CDP 無法連接 | Chrome 未啟動 | 執行 `chromium-browser --headless --remote-debugging-port=9222 --no-sandbox &` |
-| 描述欄 0/4000 | React 未識別輸入 | 確保用 `Input.insertText` CDP 方法，而非 JS innerHTML |
-| git push 失敗 | Token 過期 | 到 GitHub Settings 重新生成 Personal Access Token |
-| 上傳後 episode 仍是 Untitled | 標題填入失敗 | 檢查 `#title-input` selector 是否仍有效 |
+| IA 上傳 UnicodeEncodeError | HTTP header 不支援中文 | 用 `uri(quote(value))` 格式編碼 metadata |
+| IA 上傳 403 | credentials 錯誤 | 確認 `~/.config/internetarchive/ia.ini` 設定正確 |
+| git push 失敗（secrets detected） | 腳本中有硬編碼 token | 確保 token 只在 `.env` 中，腳本用 `source .env` 讀取 |
+| git push 失敗（token 過期） | GitHub PAT 過期 | 到 GitHub Settings 重新生成 Personal Access Token，更新 `.env` |
+| RSS feed 無法訪問 | GitHub Pages 未啟用 | 到 repo Settings → Pages → 設定 Source 為 main branch |
 | Telegram 未收到通知 | Bot Token 或 Chat ID 錯誤 | 用 `getUpdates` API 重新確認 Chat ID |
