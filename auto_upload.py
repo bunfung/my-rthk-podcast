@@ -39,7 +39,13 @@ SHOW_ID = '6DVYbYCCvSBreKzyStsnFp'
 WIZARD_URL = f'https://creators.spotify.com/pod/show/{SHOW_ID}/episode/wizard'
 EPISODES_URL = f'https://creators.spotify.com/pod/show/{SHOW_ID}/episodes'
 CHROME_URL = 'http://localhost:9222'
-GITHUB_TOKEN = 'GITHUB_TOKEN_REMOVED'
+# 從 .env 讀取 token（唔硬編碼）
+try:
+    from dotenv import load_dotenv
+    load_dotenv('/home/ubuntu/rthk_podcast/.env')
+except ImportError:
+    pass
+GITHUB_TOKEN = os.environ.get('GITHUB_TOKEN', '')
 GITHUB_REPO = 'bunfung/my-rthk-podcast'
 
 ALLOWED_HOSTS = ["蘇奭", "邱逸", "馬鼎盛", "馮天樂"]
