@@ -2,7 +2,13 @@
 # -*- coding: utf-8 -*-
 """
 RTHK 《講東講西》集數更新腳本
-抓取新集數，並用主持人篩選規則過濾
+邏輯：
+  1. 讀取 last_checked.json 取得上次檢查到的最新日期
+  2. 只抓取比該日期更新的集數（唔理本地有冇 MP3）
+  3. 符合主持人條件 → 加入 episodes.json
+  4. 唔符合條件 → 唔加入，但更新 last_checked_date
+  5. 更新 last_checked.json 記錄今次最新日期
+
 篩選規則：
   - 有「主持：」欄 → 必須包含蘇奭、邱逸、馬鼎盛、馮天樂其中一位
   - 冇「主持：」欄 → 用「主持人：」欄判斷，必須包含以上其中一位
@@ -14,7 +20,6 @@ import os
 import logging
 import time
 from datetime import datetime, date
-from bs4 import BeautifulSoup
 
 logging.basicConfig(
     level=logging.INFO,
@@ -29,8 +34,8 @@ logger = logging.getLogger(__name__)
 CHANNEL = "radio1"
 PROGRAMME = "Free_as_the_wind"
 BASE_URL = "https://www.rthk.hk"
-START_DATE = date(2025, 10, 1)
 EPISODES_FILE = "/home/ubuntu/rthk_podcast/episodes.json"
+LAST_CHECKED_FILE = "/home/ubuntu/rthk_podcast/last_checked.json"
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36",
     "Referer": f"https://www.rthk.hk/radio/{CHANNEL}/programme/{PROGRAMME}",
@@ -55,8 +60,22 @@ def save_episodes(episodes):
     logger.info(f"已保存 {len(episodes)} 個集數")
 
 
+def load_last_checked():
+    """讀取上次檢查記錄"""
+    if os.path.exists(LAST_CHECKED_FILE):
+        with open(LAST_CHECKED_FILE, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    return {"last_checked_date": "01/10/2025"}
+
+
+def save_last_checked(data):
+    """保存上次檢查記錄"""
+    with open(LAST_CHECKED_FILE, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
+
 def parse_date(date_str):
-    """解析日期字符串"""
+    """解析日期字符串，返回 date 物件"""
     try:
         return datetime.strptime(date_str, "%d/%m/%Y").date()
     except:
@@ -72,7 +91,7 @@ def check_host_qualification(ep_id):
     """
     檢查集數是否符合主持人條件
     規則：
-      - 有「主持：」欄 → 必須包含 ALLOWED_HOSTS 其中一位（包括嘉賓欄）
+      - 有「主持：」欄 → 用主持 + 嘉賓判斷
       - 冇「主持：」欄 → 用「主持人：」欄判斷
     返回 (qualify: bool, rule_used: str, matched: list)
     """
@@ -81,7 +100,6 @@ def check_host_qualification(ep_id):
         resp = requests.get(url, headers=HEADERS, timeout=15)
         text = resp.text
 
-        # 從 popEpiTit 抓取目標集數的完整資料
         pop_match = re.search(r'popEpiTit.*?</div>\s*</div>\s*</div>', text, re.DOTALL)
 
         ep_hosts = []
@@ -91,7 +109,6 @@ def check_host_qualification(ep_id):
         if pop_match:
             pop_section = pop_match.group(0)
 
-            # 從 epidesc 抓「主持：」欄（當集主持人，排除「主持人：」）
             epidesc_match = re.search(r'epidesc.*?</div>', pop_section, re.DOTALL)
             if epidesc_match:
                 epidesc = epidesc_match.group(0)
@@ -100,17 +117,13 @@ def check_host_qualification(ep_id):
                 guest_matches = re.findall(r'嘉賓[：:]([^\n<\r]+)', epidesc)
                 ep_guests = list(set([clean_html(g).strip() for g in guest_matches if clean_html(g).strip()]))
 
-            # 從 popEpiTit 的 <p> 抓「主持人：」欄（節目整體輪值）
             host_list_matches = re.findall(r'主持人[：:]([^\n<\r]+)', pop_section)
             programme_host_list = list(set([clean_html(h).strip() for h in host_list_matches if clean_html(h).strip()]))
 
-        # 篩選邏輯
         if ep_hosts:
-            # 有「主持：」欄 → 用主持 + 嘉賓判斷
             check_people = ep_hosts + ep_guests
             rule_used = '主持：'
         else:
-            # 冇「主持：」欄 → 用「主持人：」欄判斷
             check_people = programme_host_list
             rule_used = '主持人：（節目整體）'
 
@@ -130,6 +143,7 @@ def get_available_months():
     resp = requests.get(url, headers=HEADERS, timeout=30)
     resp.raise_for_status()
 
+    from bs4 import BeautifulSoup
     soup = BeautifulSoup(resp.text, 'html.parser')
     months = []
 
@@ -173,13 +187,26 @@ def get_episode_audio_urls(episode_id):
 
 
 def update_episodes():
-    """更新集數數據，只添加符合主持人條件的新集數"""
+    """
+    更新集數數據。
+    核心邏輯：
+      - 讀取 last_checked.json 取得上次檢查到的最新日期
+      - 只處理比該日期更新的集數
+      - 符合主持人條件 → 加入 episodes.json
+      - 唔符合條件 → 唔加入，但記錄日期（避免下次重複檢查）
+      - 更新 last_checked.json
+    """
     logger.info("開始更新集數...")
 
-    # 加載現有集數
+    # 讀取上次檢查記錄
+    last_checked = load_last_checked()
+    last_checked_date = parse_date(last_checked.get("last_checked_date", "01/10/2025"))
+    logger.info(f"上次檢查日期: {last_checked.get('last_checked_date')} ({last_checked_date})")
+
+    # 加載現有集數（用於避免重複加入）
     existing = load_existing_episodes()
-    existing_ids = {ep.get("id") for ep in existing}
-    logger.info(f"現有集數: {len(existing)} 個")
+    existing_ids = {str(ep.get("id")) for ep in existing}
+    logger.info(f"現有符合條件集數: {len(existing)} 個")
 
     # 獲取可用月份
     months = get_available_months()
@@ -187,71 +214,104 @@ def update_episodes():
 
     new_episodes = []
     skipped_host = []
+    latest_date_seen = last_checked_date  # 追蹤今次見到的最新日期
 
     for ym in months:
         year = int(ym[:4])
         month = int(ym[4:])
 
-        if (year, month) < (2025, 10):
+        # 如果這個月份早於上次檢查日期所在月份，可以停止
+        ym_date = date(year, month, 1)
+        last_ym_date = date(last_checked_date.year, last_checked_date.month, 1)
+        if ym_date < last_ym_date:
+            logger.info(f"月份 {ym} 早於上次檢查月份，停止掃描")
             break
 
         logger.info(f"檢查 {ym} 的集數...")
         episodes = get_episodes_by_month(ym)
 
         for ep in episodes:
-            ep_id = ep.get("id")
+            ep_id = str(ep.get("id"))
             ep_date = parse_date(ep.get("date", ""))
             title = ep.get("title", "未知")
 
-            if ep_date and ep_date >= START_DATE and ep_id not in existing_ids:
-                logger.info(f"  新集數: {ep.get('date')} - {title} (ID: {ep_id})")
+            if not ep_date:
+                continue
 
-                # 檢查主持人條件
-                qualify, rule_used, matched = check_host_qualification(ep_id)
-                time.sleep(0.3)  # 避免過於頻繁請求
+            # 只處理比上次檢查日期更新的集數
+            if ep_date <= last_checked_date:
+                continue
 
-                if not qualify:
-                    logger.info(f"  ❌ 不符合主持人條件 (規則: {rule_used}) - 跳過")
-                    skipped_host.append(f"{ep.get('date')} - {title}")
-                    existing_ids.add(ep_id)  # 標記為已處理，避免重複檢查
-                    continue
+            # 更新今次見到的最新日期
+            if ep_date > latest_date_seen:
+                latest_date_seen = ep_date
 
-                logger.info(f"  ✅ 符合條件 (規則: {rule_used}, 匹配: {matched})")
+            # 如果已在 episodes.json，跳過（唔重複加入）
+            if ep_id in existing_ids:
+                logger.info(f"  已存在: {ep.get('date')} - {title} (ID: {ep_id})")
+                continue
 
-                # 獲取音頻 URL
-                try:
-                    audio_urls = get_episode_audio_urls(ep_id)
-                    ep["audio_urls"] = audio_urls
+            logger.info(f"  新集數: {ep.get('date')} - {title} (ID: {ep_id})")
 
-                    part_info = []
-                    for i, part_text in enumerate(ep.get("part", [])):
-                        audio_url = audio_urls[i] if i < len(audio_urls) else ""
-                        part_info.append({
-                            "label": part_text,
-                            "audio_url": audio_url,
-                            "part_index": i
-                        })
-                    ep["part_info"] = part_info
-                    ep["host_matched"] = matched
-                    ep["host_rule"] = rule_used
+            # 檢查主持人條件
+            qualify, rule_used, matched = check_host_qualification(ep_id)
+            time.sleep(0.5)  # 避免過於頻繁請求
 
-                except Exception as e:
-                    logger.error(f"  獲取音頻 URL 失敗: {e}")
-                    ep["audio_urls"] = []
-                    ep["part_info"] = []
+            if not qualify:
+                logger.info(f"  ❌ 不符合主持人條件 (規則: {rule_used}) - 跳過，但記錄日期")
+                skipped_host.append(f"{ep.get('date')} - {title}")
+                continue
 
-                new_episodes.append(ep)
-                existing_ids.add(ep_id)
+            logger.info(f"  ✅ 符合條件 (規則: {rule_used}, 匹配: {matched})")
+
+            # 獲取音頻 URL
+            try:
+                audio_urls = get_episode_audio_urls(ep_id)
+                ep["audio_urls"] = audio_urls
+
+                part_info = []
+                for i, part_text in enumerate(ep.get("part", [])):
+                    audio_url = audio_urls[i] if i < len(audio_urls) else ""
+                    part_info.append({
+                        "label": part_text,
+                        "audio_url": audio_url,
+                        "part_index": i
+                    })
+                ep["part_info"] = part_info
+                ep["host_matched"] = matched
+                ep["host_rule"] = rule_used
+
+            except Exception as e:
+                logger.error(f"  獲取音頻 URL 失敗: {e}")
+                ep["audio_urls"] = []
+                ep["part_info"] = []
+
+            new_episodes.append(ep)
+            existing_ids.add(ep_id)
 
     if skipped_host:
         logger.info(f"因主持人條件跳過 {len(skipped_host)} 集: {skipped_host}")
 
+    # 更新 last_checked.json（無論有冇新集數都要更新日期）
+    if latest_date_seen > last_checked_date:
+        new_last_checked = {
+            "last_checked_date": latest_date_seen.strftime("%d/%m/%Y"),
+            "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "note": "只記錄日期，唔記錄 ID（因為 ID 係全台共用流水號）"
+        }
+        save_last_checked(new_last_checked)
+        logger.info(f"已更新 last_checked_date 至 {latest_date_seen.strftime('%d/%m/%Y')}")
+    else:
+        logger.info("今次冇見到更新的日期，last_checked.json 保持不變")
+
     if new_episodes:
         logger.info(f"找到 {len(new_episodes)} 個符合條件的新集數")
         updated = new_episodes + existing
+
         def sort_key(ep):
             d = parse_date(ep.get("date", ""))
             return d if d else date.min
+
         updated.sort(key=sort_key, reverse=True)
         save_episodes(updated)
         logger.info("更新完成！")
