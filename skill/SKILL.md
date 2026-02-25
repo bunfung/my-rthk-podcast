@@ -7,7 +7,14 @@ description: 自動化抓取 RTHK 《講東講西》節目集數、下載 MP3、
 
 ## 系統概覽
 
-自動化流程：RTHK 網站 → 篩選主持人 → 下載 MP3 → 上傳 Internet Archive → 更新 ia_mapping.json → 生成 RSS feed → git push → Telegram 通知
+**一條龍流程：**
+1. 讀取 `last_checked_date`（上次檢查日期）
+2. 從 RTHK 網站抓取比該日期更新的集數
+3. 符合主持人條件 **AND** 唔在 `ia_mapping.json` → 下載 MP3
+4. 上傳到 Internet Archive
+5. 加入 `ia_mapping.json` + 更新 `last_checked_date`
+6. 刪除本地 MP3（節省空間，IA 已有備份）
+7. 生成 RSS feed → git push → Telegram 通知
 
 **主持人篩選條件：** 蘇奭、邱逸、馬鼎盛、馮天樂（四選一）
 
@@ -31,10 +38,12 @@ description: 自動化抓取 RTHK 《講東講西》節目集數、下載 MP3、
 
 | 腳本 | 用途 |
 |------|------|
-| `update.py` | 抓取 RTHK 網站最新集數，只處理比 `last_checked_date` 更新的集數，更新 `episodes.json` 和 `last_checked.json` |
-| `upload_all_to_ia.py` | 上傳本地 MP3 到 Internet Archive，更新 `ia_mapping.json`（讀取 `episodes.json`） |
+| `run_update.py` | **主腳本**：一條龍完成抓取→篩選→下載→上傳→記錄，輸出統計到 `/tmp/rthk_update_stats.json` |
 | `generate_rss.py` | 從 `ia_mapping.json` 生成 RSS feed XML |
-| `daily_update_ia.sh` | 整合所有步驟，完成後發送 Telegram 通知（包含今日新增集數名稱） |
+| `daily_update_ia.sh` | Shell 包裝：重建環境→執行 run_update.py→生成 RSS→git push→Telegram 通知 |
+| `test_update.py` | 測試腳本：調整 `last_checked_date` 驗證流程邏輯 |
+| `upload_all_to_ia.py` | 舊腳本（保留備用）：批量上傳本地 MP3 到 IA |
+| `update.py` | 舊腳本（保留備用）：只抓取集數，唔下載 |
 
 ## 核心邏輯：避免重複下載
 
@@ -42,19 +51,18 @@ description: 自動化抓取 RTHK 《講東講西》節目集數、下載 MP3、
 
 正確邏輯：
 1. `last_checked.json` 記錄上次檢查到的最新**日期**（唔係 ID）
-2. `update.py` 每次只抓取比 `last_checked_date` 更新的集數
-3. 符合主持人條件 → 加入 `episodes.json`
-4. 唔符合條件 → 唔加入，但 `last_checked_date` 仍然更新
-5. `upload_all_to_ia.py` 只上傳 `episodes.json` 有但 `ia_mapping.json` 冇的集數
-6. **sandbox 重置後本地 MP3 會消失，但 `ia_mapping.json` 有記錄就代表已上傳，唔需要重新下載**
+2. `run_update.py` 每次只抓取比 `last_checked_date` 更新的集數
+3. 符合主持人條件 AND 唔在 `ia_mapping.json` → 下載並上傳
+4. 唔符合條件 → 唔下載，但 `last_checked_date` 仍然更新
+5. **sandbox 重置後本地 MP3 會消失，但 `ia_mapping.json` 有記錄就代表已上傳，唔需要重新下載**
+6. **唔需要 `episodes.json`** — `ia_mapping.json` 就係唯一的已處理集數記錄
 
 ## 本地 JSON 記錄
 
 | 檔案 | 格式 | 用途 | 是否在 GitHub |
 |------|------|------|--------------|
-| `episodes.json` | `[{id, title, date, audio_urls, ...}]` | 符合主持人條件的集數 | ✅ 是 |
-| `ia_mapping.json` | `{ep_id: {item_id, url, title, date}}` | 已上傳到 IA 的記錄 | ✅ 是 |
-| `last_checked.json` | `{last_checked_date, last_checked_title, ...}` | 上次檢查到的最新日期 | ✅ 是 |
+| `ia_mapping.json` | `{ep_id: {item_id, url, title, date, size}}` | 已上傳到 IA 的記錄（主要記錄） | ✅ 是 |
+| `last_checked.json` | `{last_checked_date, updated_at, note}` | 上次檢查到的最新日期 | ✅ 是 |
 | `.env` | `KEY=VALUE` | 所有 credentials | ❌ 否（.gitignore） |
 
 每次更新後自動 `git push` 到 GitHub，確保記錄持久化。
@@ -112,15 +120,11 @@ cd /home/ubuntu/rthk_podcast && bash daily_update_ia.sh
 
 ## Internet Archive 上傳流程
 
-`upload_all_to_ia.py` 使用 IA S3 API：
-
-1. 讀取 `episodes.json` 獲取集數列表
-2. 跳過已在 `ia_mapping.json` 中的集數
-3. 只上傳本地有 MP3 的集數
-4. 用 HTTP PUT 上傳到 `https://s3.us.archive.org/{item_id}/{filename}`
-5. item_id 格式：`rthk-jiang-dong-jiang-xi-{ep_id}`
-6. metadata 中文字符需用 `uri(quote(value))` 格式
-7. 上傳成功後記錄到 `ia_mapping.json`
+`run_update.py` 使用 IA S3 API：
+1. 用 HTTP PUT 上傳到 `https://s3.us.archive.org/{item_id}/{filename}`
+2. item_id 格式：`rthk-jiang-dong-jiang-xi-{ep_id}`
+3. metadata 中文字符需用 `uri(quote(value))` 格式
+4. 上傳成功後立即記錄到 `ia_mapping.json` 並刪除本地 MP3
 
 ## RSS Feed 生成
 
@@ -149,6 +153,16 @@ cd /home/ubuntu/rthk_podcast && bash daily_update_ia.sh
 
 — Manus 自動通知系統
 ```
+
+## 如何測試
+
+1. 將 `last_checked.json` 的 `last_checked_date` 調早一日
+2. 執行 `bash daily_update_ia.sh`
+3. 確認：
+   - 已上傳的集數 → 正確跳過（`ia_mapping.json` 有記錄）
+   - 唔符合主持人條件 → 正確跳過
+   - 新符合條件的集數 → 下載、上傳、記錄，並收到 Telegram 通知
+   - `last_checked_date` 自動更新到最新日期
 
 ## 常見問題排查
 
