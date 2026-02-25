@@ -5,7 +5,7 @@
     <description>香港電台第一台《講東講西》節目精選集數，主持人：蘇奭、邱逸、馬鼎盛、馮天樂</description>
     <link>https://www.rthk.hk/radio/radio1/programme/Free_as_the_wind</link>
     <language>zh-hk</language>
-    <lastBuildDate>Tue, 24 Feb 2026 04:29:58 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 24 Feb 2026 21:54:52 +0800</lastBuildDate>
     <atom:link href="https://bunfung.github.io/my-rthk-podcast/feed.xml" rel="self" type="application/rss+xml"/>
     <itunes:author>RTHK Radio 1</itunes:author>
     <itunes:summary>香港電台第一台《講東講西》節目精選集數，主持人：蘇奭、邱逸、馬鼎盛、馮天樂</itunes:summary>
@@ -26,6 +26,7 @@
       <itunes:title>馬到功成</itunes:title>
       <itunes:author>RTHK Radio 1</itunes:author>
       <itunes:summary>RTHK 講東講西 - 馬到功成，播出日期：18/02/2026</itunes:summary>
+      <itunes:image href="https://www.rthk.hk/assets/images/radio/radio1/programme/Free_as_the_wind/logo.jpg"/>
       <itunes:duration>5400</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
     </item>
@@ -39,6 +40,7 @@
       <itunes:title>蘇聯援助西班牙共和國</itunes:title>
       <itunes:author>RTHK Radio 1</itunes:author>
       <itunes:summary>RTHK 講東講西 - 蘇聯援助西班牙共和國，播出日期：16/02/2026</itunes:summary>
+      <itunes:image href="https://www.rthk.hk/assets/images/radio/radio1/programme/Free_as_the_wind/logo.jpg"/>
       <itunes:duration>5400</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
     </item>
@@ -52,6 +54,7 @@
       <itunes:title>千秋功罪秦始皇</itunes:title>
       <itunes:author>RTHK Radio 1</itunes:author>
       <itunes:summary>RTHK 講東講西 - 千秋功罪秦始皇，播出日期：11/02/2026</itunes:summary>
+      <itunes:image href="https://www.rthk.hk/assets/images/radio/radio1/programme/Free_as_the_wind/logo.jpg"/>
       <itunes:duration>5400</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
     </item>
@@ -65,6 +68,7 @@
       <itunes:title>17至19世紀英國賣妻合法化</itunes:title>
       <itunes:author>RTHK Radio 1</itunes:author>
       <itunes:summary>RTHK 講東講西 - 17至19世紀英國賣妻合法化，播出日期：09/02/2026</itunes:summary>
+      <itunes:image href="https://www.rthk.hk/assets/images/radio/radio1/programme/Free_as_the_wind/logo.jpg"/>
       <itunes:duration>5400</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
     </item>
@@ -78,6 +82,7 @@
       <itunes:title>王陽明和佛學</itunes:title>
       <itunes:author>RTHK Radio 1</itunes:author>
       <itunes:summary>RTHK 講東講西 - 王陽明和佛學，播出日期：28/01/2026</itunes:summary>
+      <itunes:image href="https://www.rthk.hk/assets/images/radio/radio1/programme/Free_as_the_wind/logo.jpg"/>
       <itunes:duration>5400</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
     </item>
@@ -91,6 +96,7 @@
       <itunes:title>納粹軍官挽救一千猶太人</itunes:title>
       <itunes:author>RTHK Radio 1</itunes:author>
       <itunes:summary>RTHK 講東講西 - 納粹軍官挽救一千猶太人，播出日期：26/01/2026</itunes:summary>
+      <itunes:image href="https://www.rthk.hk/assets/images/radio/radio1/programme/Free_as_the_wind/logo.jpg"/>
       <itunes:duration>5400</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
     </item>
@@ -104,6 +110,7 @@
       <itunes:title>赤馬紅羊是禍是福？</itunes:title>
       <itunes:author>RTHK Radio 1</itunes:author>
       <itunes:summary>RTHK 講東講西 - 赤馬紅羊是禍是福？，播出日期：21/01/2026</itunes:summary>
+      <itunes:image href="https://www.rthk.hk/assets/images/radio/radio1/programme/Free_as_the_wind/logo.jpg"/>
       <itunes:duration>5400</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
     </item>
@@ -117,6 +124,7 @@
       <itunes:title>重慶防空洞菜市場</itunes:title>
       <itunes:author>RTHK Radio 1</itunes:author>
       <itunes:summary>RTHK 講東講西 - 重慶防空洞菜市場，播出日期：19/01/2026</itunes:summary>
+      <itunes:image href="https://www.rthk.hk/assets/images/radio/radio1/programme/Free_as_the_wind/logo.jpg"/>
       <itunes:duration>5400</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
     </item>
@@ -130,6 +138,7 @@
       <itunes:title>巨貪嚴嵩</itunes:title>
       <itunes:author>RTHK Radio 1</itunes:author>
       <itunes:summary>RTHK 講東講西 - 巨貪嚴嵩，播出日期：31/12/2025</itunes:summary>
+      <itunes:image href="https://www.rthk.hk/assets/images/radio/radio1/programme/Free_as_the_wind/logo.jpg"/>
       <itunes:duration>5400</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
     </item>
@@ -143,6 +152,7 @@
       <itunes:title>農民運動大王彭湃</itunes:title>
       <itunes:author>RTHK Radio 1</itunes:author>
       <itunes:summary>RTHK 講東講西 - 農民運動大王彭湃，播出日期：29/12/2025</itunes:summary>
+      <itunes:image href="https://www.rthk.hk/assets/images/radio/radio1/programme/Free_as_the_wind/logo.jpg"/>
       <itunes:duration>5400</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
     </item>
@@ -156,6 +166,7 @@
       <itunes:title>大禮議</itunes:title>
       <itunes:author>RTHK Radio 1</itunes:author>
       <itunes:summary>RTHK 講東講西 - 大禮議，播出日期：24/12/2025</itunes:summary>
+      <itunes:image href="https://www.rthk.hk/assets/images/radio/radio1/programme/Free_as_the_wind/logo.jpg"/>
       <itunes:duration>5400</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
     </item>
@@ -169,6 +180,7 @@
       <itunes:title>中國電建調查75億元在建項目</itunes:title>
       <itunes:author>RTHK Radio 1</itunes:author>
       <itunes:summary>RTHK 講東講西 - 中國電建調查75億元在建項目，播出日期：22/12/2025</itunes:summary>
+      <itunes:image href="https://www.rthk.hk/assets/images/radio/radio1/programme/Free_as_the_wind/logo.jpg"/>
       <itunes:duration>5400</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
     </item>
@@ -182,6 +194,7 @@
       <itunes:title>古今的眼睛與視力</itunes:title>
       <itunes:author>RTHK Radio 1</itunes:author>
       <itunes:summary>RTHK 講東講西 - 古今的眼睛與視力，播出日期：26/11/2025</itunes:summary>
+      <itunes:image href="https://www.rthk.hk/assets/images/radio/radio1/programme/Free_as_the_wind/logo.jpg"/>
       <itunes:duration>5400</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
     </item>
@@ -195,6 +208,7 @@
       <itunes:title>粵語流行曲的文化流向</itunes:title>
       <itunes:author>RTHK Radio 1</itunes:author>
       <itunes:summary>RTHK 講東講西 - 粵語流行曲的文化流向，播出日期：24/11/2025</itunes:summary>
+      <itunes:image href="https://www.rthk.hk/assets/images/radio/radio1/programme/Free_as_the_wind/logo.jpg"/>
       <itunes:duration>5400</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
     </item>
@@ -208,6 +222,7 @@
       <itunes:title>明憲宗與萬貴妃</itunes:title>
       <itunes:author>RTHK Radio 1</itunes:author>
       <itunes:summary>RTHK 講東講西 - 明憲宗與萬貴妃，播出日期：19/11/2025</itunes:summary>
+      <itunes:image href="https://www.rthk.hk/assets/images/radio/radio1/programme/Free_as_the_wind/logo.jpg"/>
       <itunes:duration>5400</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
     </item>
@@ -221,6 +236,7 @@
       <itunes:title>一孩政策三十六年</itunes:title>
       <itunes:author>RTHK Radio 1</itunes:author>
       <itunes:summary>RTHK 講東講西 - 一孩政策三十六年，播出日期：17/11/2025</itunes:summary>
+      <itunes:image href="https://www.rthk.hk/assets/images/radio/radio1/programme/Free_as_the_wind/logo.jpg"/>
       <itunes:duration>5400</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
     </item>
@@ -234,6 +250,7 @@
       <itunes:title>朱高煦之亂</itunes:title>
       <itunes:author>RTHK Radio 1</itunes:author>
       <itunes:summary>RTHK 講東講西 - 朱高煦之亂，播出日期：29/10/2025</itunes:summary>
+      <itunes:image href="https://www.rthk.hk/assets/images/radio/radio1/programme/Free_as_the_wind/logo.jpg"/>
       <itunes:duration>5400</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
     </item>
@@ -247,6 +264,7 @@
       <itunes:title>香港體育會百年歷史</itunes:title>
       <itunes:author>RTHK Radio 1</itunes:author>
       <itunes:summary>RTHK 講東講西 - 香港體育會百年歷史，播出日期：28/10/2025</itunes:summary>
+      <itunes:image href="https://www.rthk.hk/assets/images/radio/radio1/programme/Free_as_the_wind/logo.jpg"/>
       <itunes:duration>5400</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
     </item>
@@ -260,6 +278,7 @@
       <itunes:title>二戰美軍在巴黎腐敗</itunes:title>
       <itunes:author>RTHK Radio 1</itunes:author>
       <itunes:summary>RTHK 講東講西 - 二戰美軍在巴黎腐敗，播出日期：27/10/2025</itunes:summary>
+      <itunes:image href="https://www.rthk.hk/assets/images/radio/radio1/programme/Free_as_the_wind/logo.jpg"/>
       <itunes:duration>5400</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
     </item>
@@ -273,6 +292,7 @@
       <itunes:title>中史科優化</itunes:title>
       <itunes:author>RTHK Radio 1</itunes:author>
       <itunes:summary>RTHK 講東講西 - 中史科優化，播出日期：22/10/2025</itunes:summary>
+      <itunes:image href="https://www.rthk.hk/assets/images/radio/radio1/programme/Free_as_the_wind/logo.jpg"/>
       <itunes:duration>5400</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
     </item>
@@ -286,6 +306,7 @@
       <itunes:title>陳景潤的故事</itunes:title>
       <itunes:author>RTHK Radio 1</itunes:author>
       <itunes:summary>RTHK 講東講西 - 陳景潤的故事，播出日期：20/10/2025</itunes:summary>
+      <itunes:image href="https://www.rthk.hk/assets/images/radio/radio1/programme/Free_as_the_wind/logo.jpg"/>
       <itunes:duration>5400</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
     </item>

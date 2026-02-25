@@ -126,6 +126,7 @@ def generate_rss():
             f'      <itunes:title>{escape_xml(title)}</itunes:title>',
             f'      <itunes:author>{escape_xml(PODCAST_AUTHOR)}</itunes:author>',
             f'      <itunes:summary>{escape_xml(f"RTHK 講東講西 - {title}，播出日期：{date}")}</itunes:summary>',
+            f'      <itunes:image href="{PODCAST_IMAGE}"/>',
             f'      <itunes:duration>5400</itunes:duration>',
             f'      <itunes:explicit>false</itunes:explicit>',
             '    </item>',
