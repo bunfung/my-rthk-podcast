@@ -8,12 +8,14 @@
 # 5. 更新 ia_mapping.json
 # 6. 生成 RSS feed
 # 7. Push 到 GitHub
-# 8. 發送 Telegram 通知報告
+# 8. 發送 Telegram 通知報告（包含新集數名稱）
 
 LOG_FILE="/home/ubuntu/rthk_podcast/daily_update.log"
 SCRIPT_DIR="/home/ubuntu/rthk_podcast"
+NEW_EP_LIST_FILE="/tmp/rthk_new_episodes.txt"
 TELEGRAM_BOT_TOKEN="8634320454:AAH6IpV7uN6-y_Gzd731Xm3O1-D76UCdnzQ"
 TELEGRAM_CHAT_ID="220866475"
+
 # 從 .env 讀取 GitHub token
 if [ -f "$SCRIPT_DIR/.env" ]; then
     source "$SCRIPT_DIR/.env"
@@ -62,7 +64,18 @@ if [ $? -ne 0 ]; then
     echo "$(date '+%Y-%m-%d %H:%M:%S') [警告] git pull 失敗，繼續使用本地記錄" >> "$LOG_FILE"
 fi
 
-# 記錄更新前的集數數量
+# 記錄更新前的集數 ID 列表（用於之後比對新增了哪些集數）
+python3 -c "
+import json
+try:
+    data = json.load(open('episodes.json'))
+    ids = set(str(ep.get('id','')) for ep in data)
+    with open('/tmp/rthk_before_ids.txt', 'w') as f:
+        f.write('\n'.join(sorted(ids)))
+except:
+    open('/tmp/rthk_before_ids.txt', 'w').close()
+" 2>/dev/null
+
 BEFORE_COUNT=$(python3 -c "import json; data=json.load(open('episodes.json')); print(len(data))" 2>/dev/null || echo "0")
 
 # 步驟 1: 更新集數列表
@@ -79,40 +92,75 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# 計算新增集數
+# 計算新增集數，並記錄新集數名稱
 AFTER_COUNT=$(python3 -c "import json; data=json.load(open('episodes.json')); print(len(data))" 2>/dev/null || echo "0")
 NEW_EPISODES=$((AFTER_COUNT - BEFORE_COUNT))
 if [ $NEW_EPISODES -lt 0 ]; then NEW_EPISODES=0; fi
+
+# 找出新增集數的名稱和日期，寫入暫存檔
+python3 -c "
+import json
+
+try:
+    before_ids = set(open('/tmp/rthk_before_ids.txt').read().strip().split('\n'))
+except:
+    before_ids = set()
+
+try:
+    data = json.load(open('episodes.json'))
+except:
+    data = []
+
+new_eps = []
+for ep in data:
+    ep_id = str(ep.get('id', ''))
+    if ep_id and ep_id not in before_ids:
+        title = ep.get('title', '?')
+        date = ep.get('date', '?')
+        new_eps.append(f'{title} ({date})')
+
+with open('/tmp/rthk_new_episodes.txt', 'w', encoding='utf-8') as f:
+    f.write('\n'.join(new_eps))
+
+print(f'新增集數: {len(new_eps)} 集')
+for ep in new_eps:
+    print(f'  {ep}')
+" >> "$LOG_FILE" 2>&1
 
 # 步驟 2: 下載新 MP3（只下載尚未在 ia_mapping 中的集數）
 echo "$(date '+%Y-%m-%d %H:%M:%S') [步驟2] 下載新 MP3..." >> "$LOG_FILE"
 BEFORE_MP3=$(ls "$SCRIPT_DIR/mp3/"*.mp3 2>/dev/null | wc -l)
 
-# 使用 update.py 更新後的 episodes.json 下載新集數
+# 記錄下載前 ia_mapping 中的 ID（用於之後比對哪些是新下載並上傳的）
 python3 -c "
-import json, os, subprocess, time, requests, re
+import json
+try:
+    d = json.load(open('ia_mapping.json'))
+    ids = list(d.keys())
+    with open('/tmp/rthk_before_ia_ids.txt', 'w') as f:
+        f.write('\n'.join(ids))
+except:
+    open('/tmp/rthk_before_ia_ids.txt', 'w').close()
+" 2>/dev/null
+
+# 下載新集數 MP3
+python3 -c "
+import json, os, subprocess, time
 
 BASE_DIR = '/home/ubuntu/rthk_podcast'
 MP3_DIR = f'{BASE_DIR}/mp3'
-CHANNEL = 'radio1'
-PROGRAMME = 'Free_as_the_wind'
-BASE_URL = 'https://www.rthk.hk'
-HEADERS = {'User-Agent': 'Mozilla/5.0'}
 
 os.makedirs(MP3_DIR, exist_ok=True)
 
-# 讀取 episodes.json
 with open(f'{BASE_DIR}/episodes.json') as f:
     episodes = json.load(f)
 
-# 讀取 ia_mapping
 try:
     with open(f'{BASE_DIR}/ia_mapping.json') as f:
         ia_mapping = json.load(f)
 except:
     ia_mapping = {}
 
-# 找出需要下載的集數（在 episodes.json 但不在 ia_mapping 且無 MP3）
 to_download = []
 for ep in episodes:
     ep_id = str(ep.get('id', ''))
@@ -131,8 +179,7 @@ for ep in to_download:
     ep_id = str(ep.get('id', ''))
     title = ep.get('title', '?')
     date = ep.get('date', '?')
-    
-    # 獲取音頻 URL
+
     audio_urls = ep.get('audio_urls', [])
     audio_url = None
     for url in audio_urls:
@@ -141,17 +188,17 @@ for ep in to_download:
             break
     if not audio_url and audio_urls:
         audio_url = audio_urls[0]
-    
+
     if not audio_url:
         print(f'無音頻 URL: {title}')
         continue
-    
+
     mp3_path = f'{MP3_DIR}/{ep_id}_0.mp3'
     tmp_path = mp3_path + '.tmp'
-    
+
     print(f'下載: {title} ({date})')
     cmd = ['ffmpeg', '-loglevel', 'error', '-i', audio_url, '-vn', '-acodec', 'libmp3lame', '-ab', '64k', '-ar', '44100', '-f', 'mp3', '-y', tmp_path]
-    
+
     try:
         result = subprocess.run(cmd, timeout=600, capture_output=True)
         if result.returncode == 0 and os.path.exists(tmp_path) and os.path.getsize(tmp_path) > 100000:
@@ -161,7 +208,7 @@ for ep in to_download:
             print(f'  ❌ 失敗: returncode={result.returncode}')
     except Exception as e:
         print(f'  ❌ 錯誤: {e}')
-    
+
     time.sleep(2)
 " >> "$LOG_FILE" 2>&1
 
@@ -179,6 +226,31 @@ if [ -f /tmp/ia_upload_stats.json ]; then
     UPLOADED=$(python3 -c "import json; d=json.load(open('/tmp/ia_upload_stats.json')); print(d.get('success',0))" 2>/dev/null || echo "0")
     FAILED=$(python3 -c "import json; d=json.load(open('/tmp/ia_upload_stats.json')); print(d.get('failed',0))" 2>/dev/null || echo "0")
 fi
+
+# 找出今次新上傳的集數名稱
+UPLOADED_LIST=$(python3 -c "
+import json
+
+try:
+    before_ids = set(open('/tmp/rthk_before_ia_ids.txt').read().strip().split('\n'))
+except:
+    before_ids = set()
+
+try:
+    ia_mapping = json.load(open('ia_mapping.json'))
+except:
+    ia_mapping = {}
+
+new_uploaded = []
+for ep_id, info in ia_mapping.items():
+    if ep_id not in before_ids:
+        title = info.get('title', '?')
+        date = info.get('date', '?')
+        new_uploaded.append(f'{title} ({date})')
+
+for ep in new_uploaded:
+    print(ep)
+" 2>/dev/null)
 
 # 步驟 4: 生成 RSS feed
 echo "$(date '+%Y-%m-%d %H:%M:%S') [步驟4] 生成 RSS feed..." >> "$LOG_FILE"
@@ -213,14 +285,9 @@ DATE_STR=$(date '+%Y-%m-%d %H:%M')
 STATUS_ICON="✅"
 if [ $FAILED -gt 0 ]; then STATUS_ICON="⚠️"; fi
 
-if [ $NEW_EPISODES -eq 0 ] && [ $UPLOADED -eq 0 ]; then
-    SUMMARY="💤 今日暫無新集數"
-else
-    SUMMARY="${STATUS_ICON} 今日更新完成！"
-fi
-
 TOTAL_IA=$(python3 -c "import json; d=json.load(open('ia_mapping.json')); print(len(d))" 2>/dev/null || echo "?")
 
+# 組合訊息
 MESSAGE="🎙️ <b>RTHK 講東講西 Podcast 每日更新報告</b>
 📅 ${DATE_STR}
 
@@ -229,14 +296,38 @@ MESSAGE="🎙️ <b>RTHK 講東講西 Podcast 每日更新報告</b>
 ⬆️ 成功上傳：<b>${UPLOADED}</b> 集
 ☁️ IA 總集數：<b>${TOTAL_IA}</b> 集"
 
+# 加入上傳集數名稱列表
+if [ -n "$UPLOADED_LIST" ]; then
+    MESSAGE="${MESSAGE}
+
+📝 <b>今日上傳集數：</b>"
+    while IFS= read -r line; do
+        if [ -n "$line" ]; then
+            MESSAGE="${MESSAGE}
+  • ${line}"
+        fi
+    done <<< "$UPLOADED_LIST"
+fi
+
+# 加入失敗數量（如有）
 if [ $FAILED -gt 0 ]; then
     MESSAGE="${MESSAGE}
+
 ❌ 上傳失敗：<b>${FAILED}</b> 集"
 fi
 
-MESSAGE="${MESSAGE}
+# 加入總結
+if [ $NEW_EPISODES -eq 0 ] && [ $UPLOADED -eq 0 ]; then
+    MESSAGE="${MESSAGE}
 
-${SUMMARY}
+💤 今日暫無新集數"
+else
+    MESSAGE="${MESSAGE}
+
+${STATUS_ICON} 今日更新完成！"
+fi
+
+MESSAGE="${MESSAGE}
 
 🔗 RSS: https://bunfung.github.io/my-rthk-podcast/feed.xml
 
