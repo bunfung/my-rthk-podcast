@@ -186,6 +186,18 @@ python3 generate_rss.py >> "$LOG_FILE" 2>&1
 
 # 步驟 5: Push 到 GitHub
 echo "$(date '+%Y-%m-%d %H:%M:%S') [步驟5] Push 到 GitHub..." >> "$LOG_FILE"
+
+# 設定包含 token 的 git remote URL（確保無需人手輸入密碼）
+if [ -n "$GITHUB_TOKEN" ]; then
+    git remote set-url origin "https://${GITHUB_TOKEN}@github.com/bunfung/my-rthk-podcast.git"
+    echo "$(date '+%Y-%m-%d %H:%M:%S') [步驟5] 已設定 git remote URL（含 token）" >> "$LOG_FILE"
+else
+    echo "$(date '+%Y-%m-%d %H:%M:%S') [警告] GITHUB_TOKEN 未設定，git push 可能失敗" >> "$LOG_FILE"
+fi
+
+git config user.email "bunfung.any@gmail.com" 2>/dev/null
+git config user.name "bunfung" 2>/dev/null
+
 git add episodes.json ia_mapping.json feed.xml >> "$LOG_FILE" 2>&1
 git commit -m "Daily update: $(date '+%Y-%m-%d')" >> "$LOG_FILE" 2>&1
 git push origin main >> "$LOG_FILE" 2>&1
