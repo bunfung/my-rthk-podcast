@@ -42,8 +42,6 @@ description: 自動化抓取 RTHK 《講東講西》節目集數、下載 MP3、
 | `generate_rss.py` | 從 `ia_mapping.json` 生成 RSS feed XML |
 | `daily_update_ia.sh` | Shell 包裝：重建環境→執行 run_update.py→生成 RSS→git push→Telegram 通知 |
 | `test_update.py` | 測試腳本：調整 `last_checked_date` 驗證流程邏輯 |
-| `upload_all_to_ia.py` | 舊腳本（保留備用）：批量上傳本地 MP3 到 IA |
-| `update.py` | 舊腳本（保留備用）：只抓取集數，唔下載 |
 
 ## 核心邏輯：避免重複下載
 
