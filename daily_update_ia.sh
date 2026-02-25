@@ -13,14 +13,19 @@
 LOG_FILE="/home/ubuntu/rthk_podcast/daily_update.log"
 SCRIPT_DIR="/home/ubuntu/rthk_podcast"
 NEW_EP_LIST_FILE="/tmp/rthk_new_episodes.txt"
-TELEGRAM_BOT_TOKEN="8634320454:AAH6IpV7uN6-y_Gzd731Xm3O1-D76UCdnzQ"
-TELEGRAM_CHAT_ID="220866475"
 
-# 從 .env 讀取 GitHub token
+# 從 .env 讀取所有 credentials
+# 注意：.env 唔在 .gitignore 內，sandbox 重置後會消失
+# 如果 .env 唔存在，schedule job 的 prompt 會先自動重建它
 if [ -f "$SCRIPT_DIR/.env" ]; then
     source "$SCRIPT_DIR/.env"
+else
+    echo "$(date '+%Y-%m-%d %H:%M:%S') [錯誤] .env 唔存在，請先建立 .env 檔案" >> "$LOG_FILE"
+    exit 1
 fi
-# GITHUB_TOKEN 應在 .env 中設定為 GITHUB_TOKEN=ghp_...
+
+TELEGRAM_BOT_TOKEN="${TELEGRAM_BOT_TOKEN}"
+TELEGRAM_CHAT_ID="${TELEGRAM_CHAT_ID}"
 
 # IA credentials
 export IA_ACCESS_KEY="kFTwDB2nXEGiWNYZ"
