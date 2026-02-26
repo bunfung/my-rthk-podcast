@@ -5,7 +5,7 @@
     <description>香港電台第一台《講東講西》節目精選集數，主持人：蘇奭、邱逸、馬鼎盛、馮天樂</description>
     <link>https://www.rthk.hk/radio/radio1/programme/Free_as_the_wind</link>
     <language>zh-hk</language>
-    <lastBuildDate>Wed, 25 Feb 2026 00:33:37 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 25 Feb 2026 20:13:38 +0800</lastBuildDate>
     <atom:link href="https://bunfung.github.io/my-rthk-podcast/feed.xml" rel="self" type="application/rss+xml"/>
     <itunes:author>RTHK Radio 1</itunes:author>
     <itunes:summary>香港電台第一台《講東講西》節目精選集數，主持人：蘇奭、邱逸、馬鼎盛、馮天樂</itunes:summary>
@@ -16,6 +16,20 @@
     <itunes:image href="https://bunfung.github.io/my-rthk-podcast/podcast_logo.jpg"/>
     <itunes:category text="Society &amp; Culture"/>
     <itunes:explicit>false</itunes:explicit>
+    <item>
+      <title>生財有道 (25/02/2026)</title>
+      <description>RTHK 講東講西 - 生財有道，播出日期：25/02/2026</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1082204</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1082204</guid>
+      <pubDate>Wed, 25 Feb 2026 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1082204/1082204_0.mp3" length="26880879" type="audio/mpeg"/>
+      <itunes:title>生財有道</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 生財有道，播出日期：25/02/2026</itunes:summary>
+      <itunes:image href="https://bunfung.github.io/my-rthk-podcast/podcast_logo.jpg"/>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>戲說光緒皇帝與珍妃 (23/02/2026)</title>
       <description>RTHK 講東講西 - 戲說光緒皇帝與珍妃，播出日期：23/02/2026</description>
