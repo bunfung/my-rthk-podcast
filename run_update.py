@@ -138,7 +138,7 @@ def check_host_qualification(ep_id, programme=None):
 def get_audio_url(ep_id):
     """獲取集數的音頻 URL"""
     url = f'{BASE_URL}/radio/getEpisode'
-    params = {'c': CHANNEL, 'p': PROGRAMME, 'e': ep_id}
+    params = {'c': CHANNEL, 'p': PROGRAMMES[0], 'e': ep_id}
     resp = requests.get(url, params=params, headers=HEADERS, timeout=30)
     urls = re.findall(r'https://rthkaod2022[^"\']+master\.m3u8[^"\']*', resp.text)
     # 優先選冇 start= 的 URL（完整集數）
