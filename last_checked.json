@@ -1,5 +1,5 @@
 {
   "last_checked_date": "30/09/2025",
-  "updated_at": "2026-03-05 02:46:00",
-  "note": "手動調回 2025-09-30 以重新檢查 Sunday URL 集數"
+  "updated_at": "2026-03-05 02:52:00",
+  "note": "調回 2025-09-30 重新掃，修復 Sunday programme URL bug"
 }

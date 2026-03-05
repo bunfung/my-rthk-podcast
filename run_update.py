@@ -102,12 +102,12 @@ def get_episodes_by_month(ym, programme):
     return []
 
 
-def check_host_qualification(ep_id):
+def check_host_qualification(ep_id, programme=None):
     """
     檢查集數是否符合主持人條件
     返回 (qualify: bool, matched: list)
     """
-    url = f'{BASE_URL}/radio/{CHANNEL}/programme/{PROGRAMMES[0]}/episode/{ep_id}'
+    url = f'{BASE_URL}/radio/{CHANNEL}/programme/{programme or PROGRAMMES[0]}/episode/{ep_id}'
     try:
         resp = requests.get(url, headers=HEADERS, timeout=15)
         text = resp.text
@@ -289,7 +289,7 @@ def main():
                 continue
 
             # 檢查主持人條件
-            qualify, matched = check_host_qualification(ep_id)
+            qualify, matched = check_host_qualification(ep_id, programme)
             time.sleep(0.5)
 
             if not qualify:
