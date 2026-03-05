@@ -1,5 +1,5 @@
 {
   "last_checked_date": "30/09/2025",
-  "updated_at": "2026-03-05 05:00:00",
-  "note": "手動調回重跑 Sunday backfill"
+  "updated_at": "2026-03-05 05:02:00",
+  "note": "重跑 backfill，加入 yt-dlp fallback"
 }

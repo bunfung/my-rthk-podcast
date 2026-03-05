@@ -150,11 +150,12 @@ def get_audio_url(ep_id, programme=None):
 
 # ── 下載 MP3 ──────────────────────────────────────────
 def download_mp3(ep_id, audio_url, title):
-    """用 ffmpeg 下載 MP3，返回路徑或 None"""
+    """用 ffmpeg 下載 MP3（失敗則用 yt-dlp fallback），返回路徑或 None"""
     os.makedirs(MP3_DIR, exist_ok=True)
     mp3_path = f'{MP3_DIR}/{ep_id}_0.mp3'
     tmp_path = mp3_path + '.tmp'
 
+    # 先試 ffmpeg
     cmd = ['ffmpeg', '-loglevel', 'error', '-i', audio_url,
            '-vn', '-acodec', 'libmp3lame', '-ab', '64k', '-ar', '44100',
            '-f', 'mp3', '-y', tmp_path]
@@ -163,15 +164,35 @@ def download_mp3(ep_id, audio_url, title):
         if result.returncode == 0 and os.path.exists(tmp_path) and os.path.getsize(tmp_path) > 100000:
             os.rename(tmp_path, mp3_path)
             size_mb = os.path.getsize(mp3_path) / 1024 / 1024
-            logger.info(f'  ✅ 下載完成: {size_mb:.1f}MB')
+            logger.info(f'  ✅ 下載完成 (ffmpeg): {size_mb:.1f}MB')
             return mp3_path
         else:
-            logger.error(f'  ❌ 下載失敗: returncode={result.returncode}')
+            logger.warning(f'  ⚠️ ffmpeg 失敗 (returncode={result.returncode})，嘗試 yt-dlp...')
             if os.path.exists(tmp_path):
                 os.remove(tmp_path)
+    except Exception as e:
+        logger.warning(f'  ⚠️ ffmpeg 錯誤: {e}，嘗試 yt-dlp...')
+
+    # yt-dlp fallback
+    try:
+        ytdlp_cmd = ['yt-dlp', '--no-playlist', '-x', '--audio-format', 'mp3',
+                     '--audio-quality', '5', '-o', tmp_path, audio_url]
+        result2 = subprocess.run(ytdlp_cmd, timeout=600, capture_output=True)
+        # yt-dlp 輸出路徑可能加 .mp3 後綴
+        actual_path = tmp_path if os.path.exists(tmp_path) else (tmp_path + '.mp3' if os.path.exists(tmp_path + '.mp3') else None)
+        if actual_path and os.path.getsize(actual_path) > 100000:
+            os.rename(actual_path, mp3_path)
+            size_mb = os.path.getsize(mp3_path) / 1024 / 1024
+            logger.info(f'  ✅ 下載完成 (yt-dlp): {size_mb:.1f}MB')
+            return mp3_path
+        else:
+            logger.error(f'  ❌ yt-dlp 亦失敗: returncode={result2.returncode}')
+            for p in [tmp_path, tmp_path + '.mp3']:
+                if os.path.exists(p):
+                    os.remove(p)
             return None
     except Exception as e:
-        logger.error(f'  ❌ 下載錯誤: {e}')
+        logger.error(f'  ❌ yt-dlp 錯誤: {e}')
         return None
 
 
