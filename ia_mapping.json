@@ -1,177 +1,317 @@
 {
-  "1081081": {
-    "item_id": "rthk-jiang-dong-jiang-xi-1081081",
-    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1081081/1081081_0.mp3",
-    "size": 40370176,
-    "title": "馬到功成",
-    "date": "18/02/2026"
-  },
-  "1054724": {
-    "item_id": "rthk-jiang-dong-jiang-xi-1054724",
-    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1054724/1054724_0.mp3",
-    "size": 33347584,
-    "title": "陳景潤的故事",
-    "date": "20/10/2025"
+  "1076337": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1076337",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1076337/1076337_0.mp3",
+    "title": "納粹軍官挽救一千猶太人",
+    "date": "26/01/2026",
+    "size": 0
   },
   "1079208": {
     "item_id": "rthk-jiang-dong-jiang-xi-1079208",
     "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1079208/1079208_0.mp3",
-    "size": 36313173,
     "title": "17至19世紀英國賣妻合法化",
-    "date": "09/02/2026"
-  },
-  "1079704": {
-    "item_id": "rthk-jiang-dong-jiang-xi-1079704",
-    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1079704/1079704_0.mp3",
-    "size": 34281265,
-    "title": "千秋功罪秦始皇",
-    "date": "11/02/2026"
-  },
-  "1080674": {
-    "item_id": "rthk-jiang-dong-jiang-xi-1080674",
-    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1080674/1080674_0.mp3",
-    "size": 36169186,
-    "title": "蘇聯援助西班牙共和國",
-    "date": "16/02/2026"
-  },
-  "1060655": {
-    "item_id": "rthk-jiang-dong-jiang-xi-1060655",
-    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1060655/1060655_0.mp3",
-    "size": 32617369,
-    "title": "一孩政策三十六年",
-    "date": "17/11/2025"
+    "date": "09/02/2026",
+    "size": 0
   },
   "1073874": {
     "item_id": "rthk-jiang-dong-jiang-xi-1073874",
     "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1073874/1073874_0.mp3",
-    "size": 36129062,
     "title": "重慶防空洞菜市場",
-    "date": "19/01/2026"
+    "date": "19/01/2026",
+    "size": 0
   },
-  "1061176": {
-    "item_id": "rthk-jiang-dong-jiang-xi-1061176",
-    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1061176/1061176_0.mp3",
-    "size": 34137069,
-    "title": "明憲宗與萬貴妃",
-    "date": "19/11/2025"
+  "1079704": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1079704",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1079704/1079704_0.mp3",
+    "title": "千秋功罪秦始皇",
+    "date": "11/02/2026",
+    "size": 0
   },
-  "1075450": {
-    "item_id": "rthk-jiang-dong-jiang-xi-1075450",
-    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1075450/1075450_0.mp3",
-    "size": 34072912,
-    "title": "赤馬紅羊是禍是福？",
-    "date": "21/01/2026"
-  },
-  "1055176": {
-    "item_id": "rthk-jiang-dong-jiang-xi-1055176",
-    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1055176/1055176_0.mp3",
-    "size": 35129095,
-    "title": "中史科優化",
-    "date": "22/10/2025"
-  },
-  "1068010": {
-    "item_id": "rthk-jiang-dong-jiang-xi-1068010",
-    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1068010/1068010_0.mp3",
-    "size": 36769167,
-    "title": "中國電建調查75億元在建項目",
-    "date": "22/12/2025"
-  },
-  "1062184": {
-    "item_id": "rthk-jiang-dong-jiang-xi-1062184",
-    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1062184/1062184_0.mp3",
-    "size": 34352945,
-    "title": "粵語流行曲的文化流向",
-    "date": "24/11/2025"
-  },
-  "1068465": {
-    "item_id": "rthk-jiang-dong-jiang-xi-1068465",
-    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1068465/1068465_0.mp3",
-    "size": 34041147,
-    "title": "大禮議",
-    "date": "24/12/2025"
-  },
-  "1076337": {
-    "item_id": "rthk-jiang-dong-jiang-xi-1076337",
-    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1076337/1076337_0.mp3",
-    "size": 37249402,
-    "title": "納粹軍官挽救一千猶太人",
-    "date": "26/01/2026"
-  },
-  "1062675": {
-    "item_id": "rthk-jiang-dong-jiang-xi-1062675",
-    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1062675/1062675_0.mp3",
-    "size": 34217108,
-    "title": "古今的眼睛與視力",
-    "date": "26/11/2025"
+  "1060655": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1060655",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1060655/1060655_0.mp3",
+    "title": "一孩政策三十六年",
+    "date": "17/11/2025",
+    "size": 0
   },
   "1056165": {
     "item_id": "rthk-jiang-dong-jiang-xi-1056165",
     "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1056165/1056165_0.mp3",
-    "size": 36472834,
     "title": "二戰美軍在巴黎腐敗",
-    "date": "27/10/2025"
+    "date": "27/10/2025",
+    "size": 0
   },
-  "1076842": {
-    "item_id": "rthk-jiang-dong-jiang-xi-1076842",
-    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1076842/1076842_0.mp3",
-    "size": 33969258,
-    "title": "王陽明和佛學",
-    "date": "28/01/2026"
-  },
-  "1056442": {
-    "item_id": "rthk-jiang-dong-jiang-xi-1056442",
-    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1056442/1056442_0.mp3",
-    "size": 35345180,
-    "title": "香港體育會百年歷史",
-    "date": "28/10/2025"
-  },
-  "1056640": {
-    "item_id": "rthk-jiang-dong-jiang-xi-1056640",
-    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1056640/1056640_0.mp3",
-    "size": 42081428,
-    "title": "朱高煦之亂",
-    "date": "29/10/2025"
-  },
-  "1069187": {
-    "item_id": "rthk-jiang-dong-jiang-xi-1069187",
-    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1069187/1069187_0.mp3",
-    "size": 37192977,
-    "title": "農民運動大王彭湃",
-    "date": "29/12/2025"
+  "1055176": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1055176",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1055176/1055176_0.mp3",
+    "title": "中史科優化",
+    "date": "22/10/2025",
+    "size": 0
   },
   "1069742": {
     "item_id": "rthk-jiang-dong-jiang-xi-1069742",
     "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1069742/1069742_0.mp3",
-    "size": 33321004,
     "title": "巨貪嚴嵩",
-    "date": "31/12/2025"
+    "date": "31/12/2025",
+    "size": 0
   },
-  "1081794": {
-    "item_id": "rthk-jiang-dong-jiang-xi-1081794",
-    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1081794/1081794_0.mp3",
-    "size": 34561506,
-    "title": "戲說光緒皇帝與珍妃",
-    "date": "23/02/2026"
+  "1061176": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1061176",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1061176/1061176_0.mp3",
+    "title": "明憲宗與萬貴妃",
+    "date": "19/11/2025",
+    "size": 0
   },
-  "1082204": {
-    "item_id": "rthk-jiang-dong-jiang-xi-1082204",
-    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1082204/1082204_0.mp3",
-    "size": 26880879,
-    "title": "生財有道",
-    "date": "25/02/2026"
+  "1062184": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1062184",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1062184/1062184_0.mp3",
+    "title": "粵語流行曲的文化流向",
+    "date": "24/11/2025",
+    "size": 0
+  },
+  "1056640": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1056640",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1056640/1056640_0.mp3",
+    "title": "朱高煦之亂",
+    "date": "29/10/2025",
+    "size": 0
   },
   "1083089": {
     "item_id": "rthk-jiang-dong-jiang-xi-1083089",
     "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1083089/1083089_0.mp3",
-    "size": 38881324,
     "title": "闖王登基",
-    "date": "02/03/2026"
+    "date": "02/03/2026",
+    "size": 0
+  },
+  "1054724": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1054724",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1054724/1054724_0.mp3",
+    "title": "陳景潤的故事",
+    "date": "20/10/2025",
+    "size": 0
+  },
+  "1068010": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1068010",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1068010/1068010_0.mp3",
+    "title": "中國電建調查75億元在建項目",
+    "date": "22/12/2025",
+    "size": 0
+  },
+  "1076842": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1076842",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1076842/1076842_0.mp3",
+    "title": "王陽明和佛學",
+    "date": "28/01/2026",
+    "size": 0
+  },
+  "1077624": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1077624",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1077624/1077624_0.mp3",
+    "title": "成也蕭何 敗也蕭何",
+    "date": "01/02/2026",
+    "size": 0
+  },
+  "1080674": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1080674",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1080674/1080674_0.mp3",
+    "title": "蘇聯援助西班牙共和國",
+    "date": "16/02/2026",
+    "size": 0
+  },
+  "1068465": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1068465",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1068465/1068465_0.mp3",
+    "title": "大禮議",
+    "date": "24/12/2025",
+    "size": 0
+  },
+  "1081224": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1081224",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1081224/1081224_0.mp3",
+    "title": "還有人拜年嗎 - 講東講西",
+    "date": "2026-02-19",
+    "size": 0
+  },
+  "1075450": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1075450",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1075450/1075450_0.mp3",
+    "title": "赤馬紅羊是禍是福？",
+    "date": "21/01/2026",
+    "size": 0
+  },
+  "1081342": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1081342",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1081342/1081342_0.mp3",
+    "title": "探討「大展鴻圖」這四個字 - 講東講西",
+    "date": "2026-02-20",
+    "size": 0
+  },
+  "1056442": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1056442",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1056442/1056442_0.mp3",
+    "title": "香港體育會百年歷史",
+    "date": "28/10/2025",
+    "size": 0
+  },
+  "1082204": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1082204",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1082204/1082204_0.mp3",
+    "title": "生財有道",
+    "date": "25/02/2026",
+    "size": 0
+  },
+  "1081081": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1081081",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1081081/1081081_0.mp3",
+    "title": "馬到功成 - 講東講西",
+    "date": "2026-02-18",
+    "size": 0
+  },
+  "1069187": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1069187",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1069187/1069187_0.mp3",
+    "title": "農民運動大王彭湃",
+    "date": "29/12/2025",
+    "size": 0
+  },
+  "1081794": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1081794",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1081794/1081794_0.mp3",
+    "title": "戲說光緒皇帝與珍妃",
+    "date": "23/02/2026",
+    "size": 0
+  },
+  "1062675": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1062675",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1062675/1062675_0.mp3",
+    "title": "古今的眼睛與視力",
+    "date": "26/11/2025",
+    "size": 0
   },
   "1083531": {
     "item_id": "rthk-jiang-dong-jiang-xi-1083531",
     "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1083531/1083531_0.mp3",
-    "title": "明末梃擊案",
-    "date": "04/03/2026",
-    "size": 57695508
+    "title": "RTHK 講東講西 明末梃擊案",
+    "date": "2026-03-04",
+    "size": 0
+  },
+  "1056032": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1056032",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1056032/1056032_0.mp3",
+    "title": "少年窮",
+    "date": "26/10/2025",
+    "size": 0
+  },
+  "1062027": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1062027",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1062027/1062027_0.mp3",
+    "title": "歷代文學作品",
+    "date": "23/11/2025",
+    "size": 0
+  },
+  "1070473": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1070473",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1070473/1070473_0.mp3",
+    "title": "黃金保值？",
+    "date": "04/01/2026",
+    "size": 0
+  },
+  "1069077": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1069077",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1069077/1069077_0.mp3",
+    "title": "自由題II",
+    "date": "28/12/2025",
+    "size": 0
+  },
+  "1076222": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1076222",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1076222/1076222_0.mp3",
+    "title": "十六聲",
+    "date": "25/01/2026",
+    "size": 0
+  },
+  "1063553": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1063553",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1063553/1063553_0.mp3",
+    "title": "南橘北枳",
+    "date": "30/11/2025",
+    "size": 0
+  },
+  "1058982": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1058982",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1058982/1058982_0.mp3",
+    "title": "國家級運動會",
+    "date": "09/11/2025",
+    "size": 0
+  },
+  "1054594": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1054594",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1054594/1054594_0.mp3",
+    "title": "林則徐",
+    "date": "19/10/2025",
+    "size": 0
+  },
+  "1079055": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1079055",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1079055/1079055_0.mp3",
+    "title": "年晚煎堆",
+    "date": "08/02/2026",
+    "size": 0
+  },
+  "1066438": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1066438",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1066438/1066438_0.mp3",
+    "title": "自由題",
+    "date": "14/12/2025",
+    "size": 0
+  },
+  "1073727": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1073727",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1073727/1073727_0.mp3",
+    "title": "大寒不寒？",
+    "date": "18/01/2026",
+    "size": 0
+  },
+  "1053146": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1053146",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1053146/1053146_0.mp3",
+    "title": "說話要算數",
+    "date": "12/10/2025",
+    "size": 0
+  },
+  "1060468": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1060468",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1060468/1060468_0.mp3",
+    "title": "精英主義",
+    "date": "16/11/2025",
+    "size": 0
+  },
+  "1072248": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1072248",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1072248/1072248_0.mp3",
+    "title": "文窮而後工",
+    "date": "11/01/2026",
+    "size": 0
+  },
+  "1057440": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1057440",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1057440/1057440_0.mp3",
+    "title": "食物之來源",
+    "date": "02/11/2025",
+    "size": 0
+  },
+  "1082957": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1082957",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1082957/1082957_0.mp3",
+    "title": "儒家文化",
+    "date": "01/03/2026",
+    "size": 0
+  },
+  "1067879": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1067879",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1067879/1067879_0.mp3",
+    "title": "冬至",
+    "date": "21/12/2025",
+    "size": 0
   }
 }
