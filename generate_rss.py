@@ -15,7 +15,7 @@ FEED_FILE = f'{BASE_DIR}/feed.xml'
 
 # Podcast 基本資訊
 PODCAST_TITLE = "RTHK 講東講西"
-PODCAST_DESCRIPTION = "香港電台第一台《講東講西》節目精選集數，主持人：蘇奭、邱逸、馬鼎盛、馮天樂"
+PODCAST_DESCRIPTION = "香港電台第一台《講東講西》節目精選集數，主持人：蘇奭、邱逸、馬鼎盛、馮天樂、岑逸飛"
 PODCAST_LINK = "https://www.rthk.hk/radio/radio1/programme/Free_as_the_wind"
 PODCAST_IMAGE = "https://bunfung.github.io/my-rthk-podcast/podcast_logo.jpg"
 PODCAST_AUTHOR = "RTHK Radio 1"
