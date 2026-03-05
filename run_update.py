@@ -135,10 +135,10 @@ def check_host_qualification(ep_id, programme=None):
         return False, []
 
 
-def get_audio_url(ep_id):
+def get_audio_url(ep_id, programme=None):
     """獲取集數的音頻 URL"""
     url = f'{BASE_URL}/radio/getEpisode'
-    params = {'c': CHANNEL, 'p': PROGRAMMES[0], 'e': ep_id}
+    params = {'c': CHANNEL, 'p': programme or PROGRAMMES[0], 'e': ep_id}
     resp = requests.get(url, params=params, headers=HEADERS, timeout=30)
     urls = re.findall(r'https://rthkaod2022[^"\']+master\.m3u8[^"\']*', resp.text)
     # 優先選冇 start= 的 URL（完整集數）
@@ -299,7 +299,7 @@ def main():
             logger.info(f'  ✅ 符合條件 (匹配: {matched})')
 
             # 獲取音頻 URL
-            audio_url = get_audio_url(ep_id)
+            audio_url = get_audio_url(ep_id, programme)
             if not audio_url:
                 logger.error(f'  ❌ 無法獲取音頻 URL')
                 stats['failed'] += 1
