@@ -1,5 +1,5 @@
 {
-  "last_checked_date": "30/09/2025",
-  "updated_at": "2026-03-05 05:02:00",
-  "note": "重跑 backfill，加入 yt-dlp fallback"
+  "last_checked_date": "04/03/2026",
+  "updated_at": "2026-03-05 05:35:00",
+  "note": "backfill complete, Sunday programme support added"
 }
