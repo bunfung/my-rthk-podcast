@@ -5,7 +5,7 @@
     <description>香港電台第一台《講東講西》節目精選集數，主持人：蘇奭、邱逸、馬鼎盛、馮天樂、岑逸飛</description>
     <link>https://www.rthk.hk/radio/radio1/programme/Free_as_the_wind</link>
     <language>zh-hk</language>
-    <lastBuildDate>Thu, 05 Mar 2026 10:51:37 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 05 Mar 2026 11:10:10 +0800</lastBuildDate>
     <atom:link href="https://bunfung.github.io/my-rthk-podcast/feed.xml" rel="self" type="application/rss+xml"/>
     <itunes:author>RTHK Radio 1</itunes:author>
     <itunes:summary>香港電台第一台《講東講西》節目精選集數，主持人：蘇奭、邱逸、馬鼎盛、馮天樂、岑逸飛</itunes:summary>
@@ -16,6 +16,20 @@
     <itunes:image href="https://bunfung.github.io/my-rthk-podcast/podcast_logo.jpg"/>
     <itunes:category text="Society &amp; Culture"/>
     <itunes:explicit>false</itunes:explicit>
+    <item>
+      <title>明末梃擊案 (04/03/2026)</title>
+      <description>RTHK 講東講西 - 明末梃擊案，播出日期：04/03/2026</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1083531</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1083531</guid>
+      <pubDate>Wed, 04 Mar 2026 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1083531/1083531_0.mp3" length="57695508" type="audio/mpeg"/>
+      <itunes:title>明末梃擊案</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 明末梃擊案，播出日期：04/03/2026</itunes:summary>
+      <itunes:image href="https://bunfung.github.io/my-rthk-podcast/podcast_logo.jpg"/>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>闖王登基 (02/03/2026)</title>
       <description>RTHK 講東講西 - 闖王登基，播出日期：02/03/2026</description>
@@ -68,6 +82,20 @@
       <itunes:title>戲說光緒皇帝與珍妃</itunes:title>
       <itunes:author>RTHK Radio 1</itunes:author>
       <itunes:summary>RTHK 講東講西 - 戲說光緒皇帝與珍妃，播出日期：23/02/2026</itunes:summary>
+      <itunes:image href="https://bunfung.github.io/my-rthk-podcast/podcast_logo.jpg"/>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>馬到功成 (18/02/2026)</title>
+      <description>RTHK 講東講西 - 馬到功成，播出日期：18/02/2026</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1081081</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1081081</guid>
+      <pubDate>Wed, 18 Feb 2026 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1081081/1081081_0.mp3" length="40401232" type="audio/mpeg"/>
+      <itunes:title>馬到功成</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 馬到功成，播出日期：18/02/2026</itunes:summary>
       <itunes:image href="https://bunfung.github.io/my-rthk-podcast/podcast_logo.jpg"/>
       <itunes:duration>5400</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
@@ -586,34 +614,6 @@
       <itunes:title>說話要算數</itunes:title>
       <itunes:author>RTHK Radio 1</itunes:author>
       <itunes:summary>RTHK 講東講西 - 說話要算數，播出日期：12/10/2025</itunes:summary>
-      <itunes:image href="https://bunfung.github.io/my-rthk-podcast/podcast_logo.jpg"/>
-      <itunes:duration>5400</itunes:duration>
-      <itunes:explicit>false</itunes:explicit>
-    </item>
-    <item>
-      <title>馬到功成 - 講東講西 (2026-02-18)</title>
-      <description>RTHK 講東講西 - 馬到功成 - 講東講西，播出日期：2026-02-18</description>
-      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1081081</link>
-      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1081081</guid>
-      <pubDate>Thu, 05 Mar 2026 22:30:00 +0800</pubDate>
-      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1081081/1081081_0.mp3" length="40401232" type="audio/mpeg"/>
-      <itunes:title>馬到功成 - 講東講西</itunes:title>
-      <itunes:author>RTHK Radio 1</itunes:author>
-      <itunes:summary>RTHK 講東講西 - 馬到功成 - 講東講西，播出日期：2026-02-18</itunes:summary>
-      <itunes:image href="https://bunfung.github.io/my-rthk-podcast/podcast_logo.jpg"/>
-      <itunes:duration>5400</itunes:duration>
-      <itunes:explicit>false</itunes:explicit>
-    </item>
-    <item>
-      <title>RTHK 講東講西 明末梃擊案 (2026-03-04)</title>
-      <description>RTHK 講東講西 - RTHK 講東講西 明末梃擊案，播出日期：2026-03-04</description>
-      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1083531</link>
-      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1083531</guid>
-      <pubDate>Thu, 05 Mar 2026 22:30:00 +0800</pubDate>
-      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1083531/1083531_0.mp3" length="57695508" type="audio/mpeg"/>
-      <itunes:title>RTHK 講東講西 明末梃擊案</itunes:title>
-      <itunes:author>RTHK Radio 1</itunes:author>
-      <itunes:summary>RTHK 講東講西 - RTHK 講東講西 明末梃擊案，播出日期：2026-03-04</itunes:summary>
       <itunes:image href="https://bunfung.github.io/my-rthk-podcast/podcast_logo.jpg"/>
       <itunes:duration>5400</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
