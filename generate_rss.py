@@ -21,7 +21,7 @@ PODCAST_IMAGE = "https://bunfung.github.io/my-rthk-podcast/podcast_logo.jpg"
 PODCAST_AUTHOR = "RTHK Radio 1"
 PODCAST_EMAIL = "bunfung.any@gmail.com"
 PODCAST_LANGUAGE = "zh-hk"
-FEED_URL = "https://bunfung.github.io/my-rthk-podcast/feed.xml"
+FEED_URL = "https://bunfung.github.io/my-rthk-podcast/rss.xml"
 
 
 def parse_date_to_rfc2822(date_str):
