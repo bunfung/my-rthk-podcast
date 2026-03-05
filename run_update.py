@@ -28,11 +28,11 @@ LAST_CHECKED_FILE = f'{BASE_DIR}/last_checked.json'
 STATS_FILE = '/tmp/rthk_update_stats.json'
 
 CHANNEL = 'radio1'
-PROGRAMME = 'Free_as_the_wind'
+PROGRAMMES = ['Free_as_the_wind', 'free_as_the_wind_sunday']
 BASE_URL = 'https://www.rthk.hk'
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
-    'Referer': f'https://www.rthk.hk/radio/{CHANNEL}/programme/{PROGRAMME}',
+    'Referer': f'https://www.rthk.hk/radio/{CHANNEL}/programme/{PROGRAMMES[0]}',
 }
 
 ALLOWED_HOSTS = ['蘇奭', '邱逸', '馬鼎盛', '馮天樂', '岑逸飛']
@@ -77,9 +77,9 @@ def save_json(path, data):
 
 
 # ── RTHK 抓取 ─────────────────────────────────────────
-def get_available_months():
+def get_available_months(programme):
     from bs4 import BeautifulSoup
-    url = f'{BASE_URL}/radio/{CHANNEL}/programme/{PROGRAMME}'
+    url = f'{BASE_URL}/radio/{CHANNEL}/programme/{programme}'
     resp = requests.get(url, headers=HEADERS, timeout=30)
     soup = BeautifulSoup(resp.text, 'html.parser')
     months = []
@@ -92,9 +92,9 @@ def get_available_months():
     return sorted(months, reverse=True)
 
 
-def get_episodes_by_month(ym):
+def get_episodes_by_month(ym, programme):
     url = f'{BASE_URL}/radio/catchUpByMonth'
-    params = {'c': CHANNEL, 'p': PROGRAMME, 'm': ym}
+    params = {'c': CHANNEL, 'p': programme, 'm': ym}
     resp = requests.get(url, params=params, headers=HEADERS, timeout=30)
     data = resp.json()
     if data.get('status') == '1':
@@ -107,7 +107,7 @@ def check_host_qualification(ep_id):
     檢查集數是否符合主持人條件
     返回 (qualify: bool, matched: list)
     """
-    url = f'{BASE_URL}/radio/{CHANNEL}/programme/{PROGRAMME}/episode/{ep_id}'
+    url = f'{BASE_URL}/radio/{CHANNEL}/programme/{PROGRAMMES[0]}/episode/{ep_id}'
     try:
         resp = requests.get(url, headers=HEADERS, timeout=15)
         text = resp.text
@@ -239,22 +239,23 @@ def main():
     stats = {'new_episodes': 0, 'downloaded': 0, 'uploaded': 0, 'failed': 0, 'uploaded_titles': []}
     latest_date_seen = last_checked_date
 
-    # 獲取可用月份
-    months = get_available_months()
-    logger.info(f'可用月份: {months}')
-
-    for ym in months:
+    # 獲取可用月份（掃兩個 programme）
+    seen_ep_ids = set()  # 避免兩個 programme 重複處理同一集數
+    for programme in PROGRAMMES:
+      months = get_available_months(programme)
+      logger.info(f'[{programme}] 可用月份: {months}')
+      for ym in months:
         year, month = int(ym[:4]), int(ym[4:])
         ym_date = date(year, month, 1)
         last_ym_date = date(last_checked_date.year, last_checked_date.month, 1)
 
         # 早於上次檢查月份，停止
         if ym_date < last_ym_date:
-            logger.info(f'月份 {ym} 早於上次檢查月份，停止')
+            logger.info(f'[{programme}] 月份 {ym} 早於上次檢查月份，停止')
             break
 
-        logger.info(f'檢查 {ym}...')
-        episodes = get_episodes_by_month(ym)
+        logger.info(f'[{programme}] 檢查 {ym}...')
+        episodes = get_episodes_by_month(ym, programme)
 
         for ep in episodes:
             ep_id = str(ep.get('id', ''))
@@ -272,6 +273,12 @@ def main():
             # 更新今次見到的最新日期
             if ep_date > latest_date_seen:
                 latest_date_seen = ep_date
+
+            # 避免兩個 programme 重複處理同一集數
+            if ep_id in seen_ep_ids:
+                logger.info(f'  已在本次掃描處理過，跳過 (ID: {ep_id})')
+                continue
+            seen_ep_ids.add(ep_id)
 
             logger.info(f'新集數: {ep_date_str} - {title} (ID: {ep_id})')
             stats['new_episodes'] += 1
