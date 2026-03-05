@@ -5,8 +5,8 @@
     <description>香港電台第一台《講東講西》節目精選集數，主持人：蘇奭、邱逸、馬鼎盛、馮天樂、岑逸飛</description>
     <link>https://www.rthk.hk/radio/radio1/programme/Free_as_the_wind</link>
     <language>zh-hk</language>
-    <lastBuildDate>Thu, 05 Mar 2026 07:30:35 +0800</lastBuildDate>
-    <atom:link href="https://bunfung.github.io/my-rthk-podcast/rss.xml" rel="self" type="application/rss+xml"/>
+    <lastBuildDate>Thu, 05 Mar 2026 07:49:36 +0800</lastBuildDate>
+    <atom:link href="https://bunfung.github.io/my-rthk-podcast/feed.xml" rel="self" type="application/rss+xml"/>
     <itunes:author>RTHK Radio 1</itunes:author>
     <itunes:summary>香港電台第一台《講東講西》節目精選集數，主持人：蘇奭、邱逸、馬鼎盛、馮天樂、岑逸飛</itunes:summary>
     <itunes:owner>
@@ -586,34 +586,6 @@
       <itunes:title>說話要算數</itunes:title>
       <itunes:author>RTHK Radio 1</itunes:author>
       <itunes:summary>RTHK 講東講西 - 說話要算數，播出日期：12/10/2025</itunes:summary>
-      <itunes:image href="https://bunfung.github.io/my-rthk-podcast/podcast_logo.jpg"/>
-      <itunes:duration>5400</itunes:duration>
-      <itunes:explicit>false</itunes:explicit>
-    </item>
-    <item>
-      <title>還有人拜年嗎 - 講東講西 (2026-02-19)</title>
-      <description>RTHK 講東講西 - 還有人拜年嗎 - 講東講西，播出日期：2026-02-19</description>
-      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1081224</link>
-      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1081224</guid>
-      <pubDate>Thu, 05 Mar 2026 22:30:00 +0800</pubDate>
-      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1081224/1081224_0.mp3" length="0" type="audio/mpeg"/>
-      <itunes:title>還有人拜年嗎 - 講東講西</itunes:title>
-      <itunes:author>RTHK Radio 1</itunes:author>
-      <itunes:summary>RTHK 講東講西 - 還有人拜年嗎 - 講東講西，播出日期：2026-02-19</itunes:summary>
-      <itunes:image href="https://bunfung.github.io/my-rthk-podcast/podcast_logo.jpg"/>
-      <itunes:duration>5400</itunes:duration>
-      <itunes:explicit>false</itunes:explicit>
-    </item>
-    <item>
-      <title>探討「大展鴻圖」這四個字 - 講東講西 (2026-02-20)</title>
-      <description>RTHK 講東講西 - 探討「大展鴻圖」這四個字 - 講東講西，播出日期：2026-02-20</description>
-      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1081342</link>
-      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1081342</guid>
-      <pubDate>Thu, 05 Mar 2026 22:30:00 +0800</pubDate>
-      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1081342/1081342_0.mp3" length="0" type="audio/mpeg"/>
-      <itunes:title>探討「大展鴻圖」這四個字 - 講東講西</itunes:title>
-      <itunes:author>RTHK Radio 1</itunes:author>
-      <itunes:summary>RTHK 講東講西 - 探討「大展鴻圖」這四個字 - 講東講西，播出日期：2026-02-20</itunes:summary>
       <itunes:image href="https://bunfung.github.io/my-rthk-podcast/podcast_logo.jpg"/>
       <itunes:duration>5400</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
