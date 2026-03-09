@@ -5,7 +5,7 @@
     <description>香港電台第一台《講東講西》節目精選集數，主持人：蘇奭、邱逸、馬鼎盛、馮天樂、岑逸飛</description>
     <link>https://www.rthk.hk/radio/radio1/programme/Free_as_the_wind</link>
     <language>zh-hk</language>
-    <lastBuildDate>Sat, 07 Mar 2026 05:13:49 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 09 Mar 2026 00:02:17 +0800</lastBuildDate>
     <atom:link href="https://bunfung.github.io/my-rthk-podcast/feed.xml" rel="self" type="application/rss+xml"/>
     <itunes:author>RTHK Radio 1</itunes:author>
     <itunes:summary>香港電台第一台《講東講西》節目精選集數，主持人：蘇奭、邱逸、馬鼎盛、馮天樂、岑逸飛</itunes:summary>
@@ -16,6 +16,20 @@
     <itunes:image href="https://bunfung.github.io/my-rthk-podcast/podcast_logo.jpg"/>
     <itunes:category text="Society &amp; Culture"/>
     <itunes:explicit>false</itunes:explicit>
+    <item>
+      <title>古文觀止 (08/03/2026)</title>
+      <description>RTHK 講東講西 - 古文觀止，播出日期：08/03/2026</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1084480</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1084480</guid>
+      <pubDate>Sun, 08 Mar 2026 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1084480/1084480_0.mp3" length="97378605" type="audio/mpeg"/>
+      <itunes:title>古文觀止</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 古文觀止，播出日期：08/03/2026</itunes:summary>
+      <itunes:image href="https://bunfung.github.io/my-rthk-podcast/podcast_logo.jpg"/>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>明末梃擊案 (04/03/2026)</title>
       <description>RTHK 講東講西 - 明末梃擊案，播出日期：04/03/2026</description>
