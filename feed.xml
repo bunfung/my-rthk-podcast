@@ -5,7 +5,7 @@
     <description>香港電台第一台《講東講西》節目精選集數，主持人：蘇奭、邱逸、馬鼎盛、馮天樂、岑逸飛</description>
     <link>https://www.rthk.hk/radio/radio1/programme/Free_as_the_wind</link>
     <language>zh-hk</language>
-    <lastBuildDate>Tue, 21 Apr 2026 00:02:52 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 23 Apr 2026 00:03:38 +0800</lastBuildDate>
     <atom:link href="https://bunfung.github.io/my-rthk-podcast/feed.xml" rel="self" type="application/rss+xml"/>
     <itunes:author>RTHK Radio 1</itunes:author>
     <itunes:summary>香港電台第一台《講東講西》節目精選集數，主持人：蘇奭、邱逸、馬鼎盛、馮天樂、岑逸飛</itunes:summary>
@@ -16,6 +16,20 @@
     <itunes:image href="https://bunfung.github.io/my-rthk-podcast/podcast_logo.jpg"/>
     <itunes:category text="Society &amp; Culture"/>
     <itunes:explicit>false</itunes:explicit>
+    <item>
+      <title>最後權宦魏忠賢 (22/04/2026)</title>
+      <description>RTHK 講東講西 - 最後權宦魏忠賢，播出日期：22/04/2026</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1094241</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1094241</guid>
+      <pubDate>Wed, 22 Apr 2026 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1094241/1094241_0.mp3" length="77762925" type="audio/mpeg"/>
+      <itunes:title>最後權宦魏忠賢</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 最後權宦魏忠賢，播出日期：22/04/2026</itunes:summary>
+      <itunes:image href="https://bunfung.github.io/my-rthk-podcast/podcast_logo.jpg"/>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>霍爾木茲海峽 (20/04/2026)</title>
       <description>RTHK 講東講西 - 霍爾木茲海峽，播出日期：20/04/2026</description>
