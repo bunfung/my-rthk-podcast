@@ -5,7 +5,7 @@
     <description>香港電台第一台《講東講西》節目精選集數，主持人：蘇奭、邱逸、馬鼎盛、馮天樂、岑逸飛</description>
     <link>https://www.rthk.hk/radio/radio1/programme/Free_as_the_wind</link>
     <language>zh-hk</language>
-    <lastBuildDate>Wed, 20 May 2026 08:02:16 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 21 May 2026 12:39:32 +0800</lastBuildDate>
     <atom:link href="https://bunfung.github.io/my-rthk-podcast/feed.xml" rel="self" type="application/rss+xml"/>
     <itunes:author>RTHK Radio 1</itunes:author>
     <itunes:summary>香港電台第一台《講東講西》節目精選集數，主持人：蘇奭、邱逸、馬鼎盛、馮天樂、岑逸飛</itunes:summary>
@@ -16,6 +16,20 @@
     <itunes:image href="https://bunfung.github.io/my-rthk-podcast/podcast_logo.jpg"/>
     <itunes:category text="Society &amp; Culture"/>
     <itunes:explicit>false</itunes:explicit>
+    <item>
+      <title>重走長征路 (20/05/2026)</title>
+      <description>RTHK 講東講西 - 重走長征路，播出日期：20/05/2026</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1102914</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1102914</guid>
+      <pubDate>Wed, 20 May 2026 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1102914/1102914_0.mp3" length="77762924" type="audio/mpeg"/>
+      <itunes:title>重走長征路</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 重走長征路，播出日期：20/05/2026</itunes:summary>
+      <itunes:image href="https://bunfung.github.io/my-rthk-podcast/podcast_logo.jpg"/>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>城市生活垃圾處理 (18/05/2026)</title>
       <description>RTHK 講東講西 - 城市生活垃圾處理，播出日期：18/05/2026</description>
