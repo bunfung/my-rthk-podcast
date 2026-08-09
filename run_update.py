@@ -16,16 +16,23 @@ import json
 import time
 import logging
 import subprocess
+import sys
 import requests
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from urllib.parse import quote
 
+try:
+    from dotenv import load_dotenv
+    load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), '.env'))
+except Exception:
+    pass
+
 # ── 設定 ──────────────────────────────────────────────
-BASE_DIR = '/home/ubuntu/rthk_podcast'
-MP3_DIR = f'{BASE_DIR}/mp3'
-IA_MAPPING_FILE = f'{BASE_DIR}/ia_mapping.json'
-LAST_CHECKED_FILE = f'{BASE_DIR}/last_checked.json'
-STATS_FILE = '/tmp/rthk_update_stats.json'
+BASE_DIR = os.environ.get('RTHK_PODCAST_DIR', os.path.dirname(os.path.abspath(__file__)))
+MP3_DIR = os.path.join(BASE_DIR, 'mp3')
+IA_MAPPING_FILE = os.path.join(BASE_DIR, 'ia_mapping.json')
+LAST_CHECKED_FILE = os.path.join(BASE_DIR, 'last_checked.json')
+STATS_FILE = os.environ.get('RTHK_STATS_FILE', '/tmp/rthk_update_stats.json')
 
 CHANNEL = 'radio1'
 PROGRAMMES = ['Free_as_the_wind', 'free_as_the_wind_sunday']
@@ -36,9 +43,16 @@ HEADERS = {
 }
 
 ALLOWED_HOSTS = ['蘇奭', '邱逸', '馬鼎盛', '馮天樂', '岑逸飛']
+SKIP_NOTICE_KEYWORDS = [
+    '節目暫停',
+    '暫停',
+    '特備節目',
+    '敬請留意',
+]
 
-IA_ACCESS_KEY = os.environ.get('IA_ACCESS_KEY', 'kFTwDB2nXEGiWNYZ')
-IA_SECRET_KEY = os.environ.get('IA_SECRET_KEY', 'gPTTPew6CA8WyEXn')
+IA_ACCESS_KEY = os.environ.get('IA_ACCESS_KEY')
+IA_SECRET_KEY = os.environ.get('IA_SECRET_KEY')
+DRY_RUN = os.environ.get('DRY_RUN', '').lower() in ('1', 'true', 'yes')
 
 logging.basicConfig(
     level=logging.INFO,
@@ -61,6 +75,11 @@ def parse_date(s):
 
 def clean_html(text):
     return re.sub(r'<[^>]+>', '', text).strip()
+
+
+def is_skip_notice_episode(title):
+    normalized = clean_html(str(title or ''))
+    return any(keyword in normalized for keyword in SKIP_NOTICE_KEYWORDS)
 
 
 def load_json(path, default):
@@ -154,11 +173,15 @@ def download_mp3(ep_id, audio_url, title):
     os.makedirs(MP3_DIR, exist_ok=True)
     mp3_path = f'{MP3_DIR}/{ep_id}_0.mp3'
     ts_path = f'{MP3_DIR}/{ep_id}_raw.mp4'
-    FFMPEG = '/usr/bin/ffmpeg'  # apt 版 5.1.x，唔 segfault
+    try:
+        import imageio_ffmpeg
+        FFMPEG = os.environ.get('FFMPEG_BIN') or imageio_ffmpeg.get_ffmpeg_exe()
+    except Exception:
+        FFMPEG = os.environ.get('FFMPEG_BIN', 'ffmpeg')
 
     # Step 1: yt-dlp 下載 TS（--fixup never 跳過 ffmpeg post-processing）
     try:
-        r = subprocess.run(['yt-dlp', '--no-playlist', '--fixup', 'never',
+        r = subprocess.run([sys.executable, '-m', 'yt_dlp', '--no-playlist', '--fixup', 'never',
                             '-o', ts_path, audio_url],
                            timeout=600, capture_output=True)
         if not os.path.exists(ts_path) or os.path.getsize(ts_path) < 1024*1024:
@@ -193,6 +216,10 @@ def download_mp3(ep_id, audio_url, title):
 # ── 上傳到 IA ─────────────────────────────────────────
 def upload_to_ia(ep_id, mp3_path, title, ep_date):
     """上傳 MP3 到 Internet Archive，返回 ia_info dict 或 None"""
+    if not IA_ACCESS_KEY or not IA_SECRET_KEY:
+        logger.error('  ❌ IA_ACCESS_KEY / IA_SECRET_KEY 未設定')
+        return None
+
     item_id = f'rthk-jiang-dong-jiang-xi-{ep_id}'
     filename = f'{ep_id}_0.mp3'
     file_size = os.path.getsize(mp3_path)
@@ -222,22 +249,34 @@ def upload_to_ia(ep_id, mp3_path, title, ep_date):
     }
 
     upload_url = f'https://s3.us.archive.org/{item_id}/{filename}'
-    with open(mp3_path, 'rb') as f:
-        resp = requests.put(upload_url, data=f, headers=headers, timeout=600)
+    last_error = None
+    for attempt in range(1, 4):
+        try:
+            with open(mp3_path, 'rb') as f:
+                resp = requests.put(upload_url, data=f, headers=headers, timeout=600)
 
-    if resp.status_code in [200, 201]:
-        ia_url = f'https://archive.org/download/{item_id}/{filename}'
-        logger.info(f'  ✅ 上傳成功: {ia_url}')
-        return {
-            'item_id': item_id,
-            'url': ia_url,
-            'size': file_size,
-            'title': title,
-            'date': ep_date
-        }
-    else:
-        logger.error(f'  ❌ 上傳失敗 HTTP {resp.status_code}: {resp.text[:200]}')
-        return None
+            if resp.status_code in [200, 201]:
+                ia_url = f'https://archive.org/download/{item_id}/{filename}'
+                logger.info(f'  ✅ 上傳成功: {ia_url}')
+                return {
+                    'item_id': item_id,
+                    'url': ia_url,
+                    'size': file_size,
+                    'title': title,
+                    'date': ep_date
+                }
+
+            last_error = f'HTTP {resp.status_code}: {resp.text[:200]}'
+            logger.error(f'  ❌ 上傳失敗（第 {attempt}/3 次）{last_error}')
+        except requests.RequestException as e:
+            last_error = str(e)
+            logger.error(f'  ❌ 上傳連線失敗（第 {attempt}/3 次）: {e}')
+
+        if attempt < 3:
+            time.sleep(30 * attempt)
+
+    logger.error(f'  ❌ 上傳最終失敗: {last_error}')
+    return None
 
 
 # ── 主流程 ────────────────────────────────────────────
@@ -253,6 +292,7 @@ def main():
     # 統計
     stats = {'new_episodes': 0, 'downloaded': 0, 'uploaded': 0, 'failed': 0, 'uploaded_titles': []}
     latest_date_seen = last_checked_date
+    failed_dates = []
 
     # 獲取可用月份（掃兩個 programme）
     seen_ep_ids = set()  # 避免兩個 programme 重複處理同一集數
@@ -303,6 +343,11 @@ def main():
                 logger.info(f'  已在 ia_mapping，跳過')
                 continue
 
+            # RTHK 有時會出「節目暫停／特備節目通知」item，符合主持人字眼但沒有音頻。
+            if is_skip_notice_episode(title):
+                logger.info(f'  節目暫停/特備節目通知，跳過')
+                continue
+
             # 檢查主持人條件
             qualify, matched = check_host_qualification(ep_id, programme)
             time.sleep(0.5)
@@ -318,6 +363,12 @@ def main():
             if not audio_url:
                 logger.error(f'  ❌ 無法獲取音頻 URL')
                 stats['failed'] += 1
+                failed_dates.append(ep_date)
+                continue
+
+            if DRY_RUN:
+                logger.info(f'  DRY_RUN：符合條件但跳過下載/上傳')
+                stats['uploaded_titles'].append(f'[DRY_RUN] {title} ({ep_date_str})')
                 continue
 
             # 下載 MP3
@@ -325,6 +376,7 @@ def main():
             mp3_path = download_mp3(ep_id, audio_url, title)
             if not mp3_path:
                 stats['failed'] += 1
+                failed_dates.append(ep_date)
                 continue
             stats['downloaded'] += 1
 
@@ -333,6 +385,7 @@ def main():
             ia_info = upload_to_ia(ep_id, mp3_path, title, ep_date_str)
             if not ia_info:
                 stats['failed'] += 1
+                failed_dates.append(ep_date)
                 continue
 
             # 加入 ia_mapping 並立即儲存
@@ -352,16 +405,30 @@ def main():
             time.sleep(2)
 
     # 更新 last_checked.json
-    if latest_date_seen > last_checked_date:
+    # 如果有集數處理失敗（例如拎唔到 audio URL、下載/上傳失敗），
+    # last_checked 不可推過最早失敗日期，否則下一次 rerun 會跳過失敗集數。
+    target_last_checked_date = latest_date_seen
+    if failed_dates:
+        first_failed_date = min(failed_dates)
+        target_last_checked_date = min(target_last_checked_date, first_failed_date - timedelta(days=1))
+        logger.warning(
+            f'有 {len(failed_dates)} 集處理失敗；last_checked 最多只會更新至 '
+            f'{target_last_checked_date.strftime("%d/%m/%Y")}，避免跳過失敗集數'
+        )
+
+    if target_last_checked_date > last_checked_date:
         new_last_checked = {
-            'last_checked_date': latest_date_seen.strftime('%d/%m/%Y'),
+            'last_checked_date': target_last_checked_date.strftime('%d/%m/%Y'),
             'updated_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-            'note': '只記錄日期，唔記錄 ID（ID 係全台共用流水號）'
+            'note': '只記錄日期，唔記錄 ID（ID 係全台共用流水號）；如有失敗集數，不會推過最早失敗日期'
         }
-        save_json(LAST_CHECKED_FILE, new_last_checked)
-        logger.info(f'已更新 last_checked_date 至 {latest_date_seen.strftime("%d/%m/%Y")}')
+        if DRY_RUN:
+            logger.info(f'DRY_RUN：不更新 last_checked_date（本來會更新至 {target_last_checked_date.strftime("%d/%m/%Y")}）')
+        else:
+            save_json(LAST_CHECKED_FILE, new_last_checked)
+            logger.info(f'已更新 last_checked_date 至 {target_last_checked_date.strftime("%d/%m/%Y")}')
     else:
-        logger.info('今次冇見到更新的日期，last_checked.json 保持不變')
+        logger.info('今次冇可安全推進的日期，last_checked.json 保持不變')
 
     # 輸出統計
     save_json(STATS_FILE, stats)
