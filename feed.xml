@@ -5,7 +5,7 @@
     <description>香港電台第一台《講東講西》節目精選集數，主持人：蘇奭、邱逸、馬鼎盛、馮天樂、岑逸飛</description>
     <link>https://www.rthk.hk/radio/radio1/programme/Free_as_the_wind</link>
     <language>zh-hk</language>
-    <lastBuildDate>Thu, 30 Jul 2026 08:35:25 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 09 Aug 2026 15:25:33 +0800</lastBuildDate>
     <atom:link href="https://bunfung.github.io/my-rthk-podcast/feed.xml" rel="self" type="application/rss+xml"/>
     <itunes:author>RTHK Radio 1</itunes:author>
     <itunes:summary>香港電台第一台《講東講西》節目精選集數，主持人：蘇奭、邱逸、馬鼎盛、馮天樂、岑逸飛</itunes:summary>
@@ -16,6 +16,34 @@
     <itunes:image href="https://bunfung.github.io/my-rthk-podcast/podcast_logo.jpg"/>
     <itunes:category text="Society &amp; Culture"/>
     <itunes:explicit>false</itunes:explicit>
+    <item>
+      <title>旅行遇上高山反應 (05/08/2026)</title>
+      <description>RTHK 講東講西 - 旅行遇上高山反應，播出日期：05/08/2026</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1118997</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1118997</guid>
+      <pubDate>Wed, 05 Aug 2026 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1118997/1118997_0.mp3" length="68337836" type="audio/mpeg"/>
+      <itunes:title>旅行遇上高山反應</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 旅行遇上高山反應，播出日期：05/08/2026</itunes:summary>
+      <itunes:image href="https://bunfung.github.io/my-rthk-podcast/podcast_logo.jpg"/>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>談電影「的士司機」及羅拔迪尼路 (03/08/2026)</title>
+      <description>RTHK 講東講西 - 談電影「的士司機」及羅拔迪尼路，播出日期：03/08/2026</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1118524</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1118524</guid>
+      <pubDate>Mon, 03 Aug 2026 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1118524/1118524_0.mp3" length="73394540" type="audio/mpeg"/>
+      <itunes:title>談電影「的士司機」及羅拔迪尼路</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 談電影「的士司機」及羅拔迪尼路，播出日期：03/08/2026</itunes:summary>
+      <itunes:image href="https://bunfung.github.io/my-rthk-podcast/podcast_logo.jpg"/>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>弘光政權 (29/07/2026)</title>
       <description>RTHK 講東講西 - 弘光政權，播出日期：29/07/2026</description>
