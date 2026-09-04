@@ -761,5 +761,19 @@
     "size": 77762348,
     "title": "西歐夜行列車",
     "date": "31/08/2026"
+  },
+  "1124428": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1124428",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1124428/1124428_0.mp3",
+    "size": 77762924,
+    "title": "講東講西 (星期一至五)",
+    "date": "01/09/2026"
+  },
+  "1124654": {
+    "item_id": "rthk-jiang-dong-jiang-xi-1124654",
+    "url": "https://archive.org/download/rthk-jiang-dong-jiang-xi-1124654/1124654_0.mp3",
+    "size": 77762924,
+    "title": "中華文化進校園",
+    "date": "02/09/2026"
   }
 }
