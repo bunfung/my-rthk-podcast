@@ -5,7 +5,7 @@
     <description>香港電台第一台《講東講西》節目精選集數，主持人：蘇奭、邱逸、馬鼎盛、馮天樂、岑逸飛</description>
     <link>https://www.rthk.hk/radio/radio1/programme/Free_as_the_wind</link>
     <language>zh-hk</language>
-    <lastBuildDate>Sat, 10 Oct 2026 08:02:14 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 28 Oct 2026 17:15:26 +0800</lastBuildDate>
     <atom:link href="https://bunfung.github.io/my-rthk-podcast/feed.xml" rel="self" type="application/rss+xml"/>
     <itunes:author>RTHK Radio 1</itunes:author>
     <itunes:summary>香港電台第一台《講東講西》節目精選集數，主持人：蘇奭、邱逸、馬鼎盛、馮天樂、岑逸飛</itunes:summary>
@@ -16,6 +16,90 @@
     <itunes:image href="https://bunfung.github.io/my-rthk-podcast/podcast_logo.jpg"/>
     <itunes:category text="Society &amp; Culture"/>
     <itunes:explicit>false</itunes:explicit>
+    <item>
+      <title>《西遊記》的人物角色壓抑 (26/10/2026)</title>
+      <description>RTHK 講東講西 - 《西遊記》的人物角色壓抑，播出日期：26/10/2026</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1135580</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1135580</guid>
+      <pubDate>Mon, 26 Oct 2026 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1135580/1135580_0.mp3" length="72531116" type="audio/mpeg"/>
+      <itunes:title>《西遊記》的人物角色壓抑</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 《西遊記》的人物角色壓抑，播出日期：26/10/2026</itunes:summary>
+      <itunes:image href="https://bunfung.github.io/my-rthk-podcast/podcast_logo.jpg"/>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>三十六計 (25/10/2026)</title>
+      <description>RTHK 講東講西 - 三十六計，播出日期：25/10/2026</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1135456</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1135456</guid>
+      <pubDate>Sun, 25 Oct 2026 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1135456/1135456_0.mp3" length="98354924" type="audio/mpeg"/>
+      <itunes:title>三十六計</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 三十六計，播出日期：25/10/2026</itunes:summary>
+      <itunes:image href="https://bunfung.github.io/my-rthk-podcast/podcast_logo.jpg"/>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>香港傳統男校 (21/10/2026)</title>
+      <description>RTHK 講東講西 - 香港傳統男校，播出日期：21/10/2026</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1134734</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1134734</guid>
+      <pubDate>Wed, 21 Oct 2026 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1134734/1134734_0.mp3" length="70386092" type="audio/mpeg"/>
+      <itunes:title>香港傳統男校</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 香港傳統男校，播出日期：21/10/2026</itunes:summary>
+      <itunes:image href="https://bunfung.github.io/my-rthk-podcast/podcast_logo.jpg"/>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>狼和人 (19/10/2026)</title>
+      <description>RTHK 講東講西 - 狼和人，播出日期：19/10/2026</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1134391</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1134391</guid>
+      <pubDate>Mon, 19 Oct 2026 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1134391/1134391_0.mp3" length="88130348" type="audio/mpeg"/>
+      <itunes:title>狼和人</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 狼和人，播出日期：19/10/2026</itunes:summary>
+      <itunes:image href="https://bunfung.github.io/my-rthk-podcast/podcast_logo.jpg"/>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>重陽與登高 (18/10/2026)</title>
+      <description>RTHK 講東講西 - 重陽與登高，播出日期：18/10/2026</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1134255</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1134255</guid>
+      <pubDate>Sun, 18 Oct 2026 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1134255/1134255_0.mp3" length="100018412" type="audio/mpeg"/>
+      <itunes:title>重陽與登高</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 重陽與登高，播出日期：18/10/2026</itunes:summary>
+      <itunes:image href="https://bunfung.github.io/my-rthk-podcast/podcast_logo.jpg"/>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>戰亂中的僑民 (14/10/2026)</title>
+      <description>RTHK 講東講西 - 戰亂中的僑民，播出日期：14/10/2026</description>
+      <link>https://archive.org/details/rthk-jiang-dong-jiang-xi-1133458</link>
+      <guid isPermaLink="false">rthk-jiang-dong-jiang-xi-1133458</guid>
+      <pubDate>Wed, 14 Oct 2026 22:30:00 +0800</pubDate>
+      <enclosure url="https://archive.org/download/rthk-jiang-dong-jiang-xi-1133458/1133458_0.mp3" length="70098668" type="audio/mpeg"/>
+      <itunes:title>戰亂中的僑民</itunes:title>
+      <itunes:author>RTHK Radio 1</itunes:author>
+      <itunes:summary>RTHK 講東講西 - 戰亂中的僑民，播出日期：14/10/2026</itunes:summary>
+      <itunes:image href="https://bunfung.github.io/my-rthk-podcast/podcast_logo.jpg"/>
+      <itunes:duration>5400</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>長恨歌 恨甚麼 (05/10/2026)</title>
       <description>RTHK 講東講西 - 長恨歌 恨甚麼，播出日期：05/10/2026</description>
